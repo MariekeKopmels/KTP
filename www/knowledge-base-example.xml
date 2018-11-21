@@ -79,12 +79,25 @@
 		<description>Fetch and tricks are play.</description>
 		<if>
 			<or>
-				<fact name="">Artificial Intelligence</fact>
-				<fact name="previous_program">Astrophysics</fact>
+				<fact name="fetch">yes</fact>
+				<fact name="tricks">yes</fact>
 			</or>
 		</if>
 		<then>
-			<fact name="previous_math_level">beta</fact>
+			<fact name="play">yes</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>Hiking person?</description>
+		<if>
+			<or>
+				<fact name="fetch">yes</fact>
+				<fact name="tricks">yes</fact>
+			</or>
+		</if>
+		<then>
+			<fact name="play">yes</fact>
 		</then>
 	</rule>
 
