@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <knowledge>
-	<title>Which program should I enter?</title>
-	<description>This is an example to show you some of the features of the inference engine.</description>
+	<title>What pet should I get?</title>
+	<description>This system will tell you what pet to get.</description>
 
 	<!-- 
 	The goal of our program is to give one advice: which program should you follow.
@@ -16,12 +16,11 @@
 
 	If none of the answer-clauses match, and there is no fallback answer-clause without a value, the system won't know what to print and not show the goal at all. You can use this to make an advisor like system by making all possible advises seperate goals and only providing an answer for when that goal is 'yes' or 'true' or whatever value you conceive for a certain advice being applicable.
 	-->
-	<goal name="program">
-		<answer value="AI">Artificial Intelligence.</answer>
-		<answer value="CS">Computing Science</answer>
-		<answer value="Phi">Philosophy</answer>
-		<answer value="Psy">Psychology</answer>
-		<answer value="$undefined">I don't know what you should do, sorry…</answer>
+	<goal name="pet">
+		<answer value="Dog">Dog</answer>
+		<answer value="Cat">Cat</answer>
+		<answer value="She">Sheep</answer>
+		<answer value="$undefined">I don't know what pet you should get, sorry…</answer>
 		<answer>Something else, namely $program.</answer>
 	</goal>
 
@@ -35,93 +34,52 @@
 	In the <fact> clauses you can use variables for both the name argument and the value. It will then use the value of that fact you are referring to as if it has been there instead. If that fact you use as a variable is not yet derived, the solver will do that for you.
 	-->
 	<rule>
-		<description>Qualifications for AI</description>
+		<description>Qualifications for Dog</description>
 		<if>
 			<and>
-				<fact name="general_math_level">beta</fact>
+				<fact name="hiking_person">yes</fact>
 				<or>
-					<fact name="likes">robots</fact>
-					<fact name="likes">agents</fact>
-					<fact name="likes">NLP</fact>
+					<fact name="play">yes</fact>
+					<fact name="cuddle">yes</fact>
 				</or>
 			</and>
 		</if>
 		<then>
-			<fact name="program">AI</fact>
+			<fact name="Get_Dog">yes</fact>
 		</then>
 	</rule>
 
 	<rule>
-		<description>Qualifications for CS</description>
+		<description>Qualifications for Cat</description>
 		<if>
 			<and>
-				<fact name="general_math_level">beta</fact>
-				<or>
-					<fact name="likes">programming</fact>
-					<fact name="likes">computer architecture</fact>
-				</or>
+				<fact name="hiking_person">no</fact>
+				<fact name="cuddle">yes</fact>
 			</and>
 		</if>
 		<then>
-			<fact name="program">CS</fact>
+			<fact name="Get_Cat">yes</fact>
 		</then>
 	</rule>
 
 	<rule>
-		<description>Qualifications for psychology</description>
+		<description>Qualifications for Sheep</description>
 		<if>
-			<fact name="likes">people</fact>
+			<fact name="cuddle">no</fact>
 		</if>
 		<then>
-			<fact name="program">Psy</fact>
+			<fact name="Get_Sheep">yes</fact>
 		</then>
-	</rule>
-
-	<rule>
-		<description>Qualifications for philosophy</description>
-		<if>
-			<fact name="likes">thinking</fact>
-		</if>
-		<then>
-			<fact name="program">Phi</fact>
-		</then>
-	</rule>
-
-	<rule>
-		<description>Qualifications for architecture</description>
-		<if>
-			<fact name="likes">designing</fact>
-		</if>
-		<then>
-			<fact name="program">Architecture</fact>
-		</then>
-	</rule>
-
-	<!--
-	Having intermediate rules is pretty much always a good idea. This one will derive general_math_level, which is later on (or more exactly in the rules above this one) used to determine the program, which was our goal.
-	-->
-	<rule>
-		<description>Your general math level (less specific, will make other rules easier to write)</description>
-		<if>
-			<or>
-				<fact name="math_level">B1</fact>
-				<fact name="math_level">B2</fact>
-				<fact name="math_level">D</fact>
-			</or>
-		</if>
-		<then>
-			<fact name="general_math_level">beta</fact>
-		</then>
-	</rule>
+	</rule>	
 
 	<!--
 	It is perfectly valid to have two separate rules with the same <then>-clause, the same consequences. general_math_level will be 'beta' if either of the rules is true. Which one is first tried depends on which facts from the <if>-clause are higher on the goal stack.
 	-->
 	<rule>
-		<description>If you followed astropyhics or artificial intelligence, we know your math is just fine.</description>
+		<description>Fetch and tricks are play.</description>
 		<if>
 			<or>
-				<fact name="previous_program">Artificial Intelligence</fact>
+				<fact name="">Artificial Intelligence</fact>
 				<fact name="previous_program">Astrophysics</fact>
 			</or>
 		</if>
