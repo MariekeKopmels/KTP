@@ -1,146 +1,128 @@
 <?xml version="1.0"?>
 <knowledge>
-	<title>What pet should I get?</title>
-	<description>This system will tell you what pet to get.</description>
+	<title>Sheep diagnosis</title>
+	<description>This system will help you decide whether you should call a veterinarian and if not, what you can do to help your sheep. </description>
 
 <!-- GOALS -->
 
-	<goal name="pet">
-		<answer value="Dog">You should get a Dog.</answer>
-		<answer value="Cat">You should get a Cat.</answer>
-		<answer value="She">You should get a Sheep.</answer>
-		<answer value="$undefined">I don't know what pet you should get, sorry…</answer>
-		<answer>Something else, namely $program.</answer>
+	<goal name="action">
+		<answer value="DierenartsUrgent">Bel zo snel mogelijk de dierenarts.</answer>
+		<answer value="Dierenarts">Bel de dierenarts.</answer>
+		<answer value="Aangifteplichtig">Je moet deze mogelijke ziekte melden bij autoriteiten.</answer>
+		<answer value="Voedingsprobleem">De oorzaak lijkt de voeding te zijn, ...</answer>
+		<answer value="Wormeninfectie">Het lijkt erop dat de schapen last hebben van wormen.</answer>
+
 	</goal>
 
 <!-- RULES -->
-	<rule>
-		<description>Qualifications for Dog</description>
-		<if>
-			<and>
-				<fact name="Hiking_person">yes</fact>
-				<or>
-					<fact name="play">yes</fact>
-					<fact name="cuddle">yes</fact>
-				</or>
-			</and>
-		</if>
-		<then>
-			<fact name="pet">Dog</fact>
-		</then>
-	</rule>
 
-	<rule>
-		<description>Qualifications for Cat</description>
-		<if>
-			<and>
-				<fact name="Hiking_person">no</fact>
-				<fact name="cuddle">yes</fact>
-			</and>
-		</if>
-		<then>
-			<fact name="pet">Cat</fact>
-		</then>
-	</rule>
-
-	<rule>
-		<description>Qualifications for Sheep</description>
-		<if>
-			<and>
-				<fact name="cuddle">no</fact>
-				<fact name="fetch">no</fact>
-				<fact name="tricks">no</fact>
-				<fact name="Hiking_person">no</fact>
-			</and>
-		</if>
-		<then>
-			<fact name="pet">She</fact>
-		</then>
-	</rule>	
-
-	<rule>
-		<description>Fetch and tricks are play.</description>
-		<if>
-			<or>
-				<fact name="fetch">yes</fact>
-				<fact name="tricks">yes</fact>
-			</or>
-		</if>
-		<then>
-			<fact name="play">yes</fact>
-		</then>
-	</rule>
-
-	<rule>
-		<description>Hiking person?</description>
-		<if>
-			<or>
-				<fact name="Hiking">yes</fact>
-				<fact name="Hiking">okay</fact>
-			</or>
-		</if>
-		<then>
+<rule>
+	<description>Qualifications for Dog</description>
+	<if>
+		<and>
 			<fact name="Hiking_person">yes</fact>
-		</then>
-	</rule>
+			<or>
+				<fact name="play">yes</fact>
+				<fact name="cuddle">yes</fact>
+			</or>
+		</and>
+	</if>
+	<then>
+		<fact name="pet">Dog</fact>
+	</then>
+</rule>
+
+
+<!--Basic knowledge we need-->
+<!--Food/grazingplan-->
+<!--Time of the year-->
+<!--Age-->
+<!--Organsystem (what organ is damaged?)-->
+<!--How many animals are sick?-->
+<!--Accuut/chronic-->
+<!--Is the sheep pregnant-->
+<!--Temperature of the sheep-->
 
 <!-- QUESTIONS -->
-	<question>
-		<description>Do you like hiking?</description>
-		<option>
-			<description>Yes, I like hiking.</description>
-			<then>
-				<fact name="Hiking">yes</fact>
-			</then>
-		</option>
-		<option>
-			<description>I don't mind to hike.</description>
-			<then>
-				<fact name="Hiking">okay</fact>
-			</then>
-		</option>
-		<option>
-			<description>No, I don't like hiking at all.</description>
-			<then>
-				<fact name="Hiking_person">no</fact>
-			</then>
-		</option>
-	</question>
+<question>
+	<description>Is het beweidingsplan van de schapen recentelijk veranderd?</description>
+	<option>
+		<description>Ja, de schapen zijn van binnen naar buiten gegaan.</description>
+		<then>
+			<fact name="Voeding">veranderd</fact>
+			<fact name="Locatie">buiten</fact>
+		</then>
+	</option>
+	<option>
+		<description>Ja, de schapen zijn van buiten naar binnen gegaan.</description>
+		<then>
+			<fact name="Voeding">veranderd</fact>
+			<fact name="Locatie">binnen</fact>
+		</then>
+	</option>
+	<option>
+		<description>Ja, de schapen staan op een nieuw weiland.</description>
+		<then>
+			<fact name="Voeding">veranderd</fact>
+			<fact name="Locatie">buiten</fact>
+		</then>
+	</option>
+	<option>
+		<description>Nee, de schapen staan nog steeds binnen.</description>
+		<then>
+			<fact name="Voeding">gelijk</fact>
+			<fact name="Locatie">binnen</fact>
+		</then>
+	</option>
+	<option>
+		<description>Nee, de schapen staan nog steeds buiten.</description>
+		<then>
+			<fact name="Voeding">gelijk</fact>
+			<fact name="Locatie">buiten</fact>
+		</then>
+	</option>
+</question>
 
-	<question>
-		<description>What activities would you like to do with your pet?</description>
-		<option>
-			<description>Cuddling</description>
-			<then>
-				<fact name="cuddle">yes</fact>
-				<fact name="fetch">no</fact>
-				<fact name="tricks">no</fact>
-			</then>
-		</option>
-		<option>
-			<description>Play fetch</description>
-			<then>
-				<fact name="fetch">yes</fact>
-				<fact name="cuddle">no</fact>
-				<fact name="tricks">no</fact>
-			</then>
-		</option>
-		<option>
-			<description>Teach it tricks</description>
-			<then>
-				<fact name="tricks">yes</fact>
-				<fact name="cuddle">no</fact>
-				<fact name="fetch">no</fact>
-			</then>
-		</option>
-		<option>
-			<description>None of the above</description>
-			<then>
-				<fact name="cuddle">no</fact>
-				<fact name="fetch">no</fact>
-				<fact name= "tricks">no</fact>
-			</then>
-		</option>
-	</question>
+<question>
+	<description>Is de voedingssoort veranderd?</description>
+	<option>
+		<description>Ja, de schapen krijgen bix, eerst kregen ze een andere soort bix.</description>
+		<then>
+			<fact name="Voedingssoort">bix</fact>
+			<fact name="Voeding">gelijk</fact>
+			<!--Een verschil in soort bix wordt niet als verandering in voeding gezien-->
+		</then>
+	</option>
+	<option>
+		<description>Ja, de schapen krijgen hooi, eerst kregen ze bix.</description>
+		<then>
+			<fact name="Voedingssoort">hooi</fact>
+			<fact name="Voeding">veranderd</fact>
+		</then>
+	</option>
+	<option>
+		<description>Ja, de schapen krijgen bix, eerst kregen ze hooi.</description>
+		<then>
+			<fact name="Voedingssoort">bix</fact>
+			<fact name="Voeding">veranderd</fact>
+		</then>
+	</option>
+	<option>
+		<description>Nee, ze krijgen nog steeds bix.</description>
+		<then>
+			<fact name="Voedingssoort">bix</fact>
+			<fact name="Voeding">gelijk</fact>
+		</then>
+	</option>
+	<option>
+		<description>Nee, ze krijgen nog steeds hooi.</description>
+		<then>
+			<fact name="Voedingssoort">hooi</fact>
+			<fact name="Voeding">gelijk</fact>
+		</then>
+	</option>
+</question>
+
+
 
 </knowledge>
