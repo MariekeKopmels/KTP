@@ -507,7 +507,7 @@
 	<option>
 		<description>Er zijn knobbels in de huid.</description>
 		<then>
-			<fact name="HuidSymptoom">knobbel</fact>
+			<fact name="HuidSymptoom">knobbels</fact>
 		</then>
 	</option>
 	<option>
