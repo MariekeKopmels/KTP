@@ -588,24 +588,24 @@ if (!class_exists('Error')) {
 	class Error extends Exception {}
 }
 
-/*
+
 function test_reader()
 {
 	include_once 'solver.php';
 
 	$reader = new KnowledgeBaseReader();
 
-	$kb = $reader->parse('regen.xml');
+	$kb = $reader->parse('SheepDiagnosis.xml');
 
-	foreach ($kb->goals as $goal)
-	{
-		$result = $kb->infer($goal->proof);
+	// foreach ($kb->goals as $goal)
+	// {
+	// 	$result = $kb->infer($goal->proof);
 
-		printf("%s: %s\n",
-			$goal->description,
-			$reader->stringifyTruthValue($result));
-	}
+	// 	printf("%s: %s\n",
+	// 		$goal->description,
+	// 		$reader->stringifyTruthValue($result));
+	// }
 }
 
 test_reader();
-*/
+

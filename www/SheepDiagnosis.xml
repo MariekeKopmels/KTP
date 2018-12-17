@@ -5,41 +5,190 @@
 
 <!-- GOALS -->
 
-	<goal name="action">
+	<goal name="Action">
 		<answer value="DierenartsUrgent">Bel zo snel mogelijk de dierenarts.</answer>
 		<answer value="Dierenarts">Bel de dierenarts.</answer>
 		<answer value="Aangifteplichtig">Je moet deze mogelijke ziekte melden bij autoriteiten.</answer>
-		<answer value="Voedingsprobleem">De oorzaak lijkt de voeding te zijn, ...</answer>
+		<answer value="Voedingsprobleem">De oorzaak lijkt de voeding te zijn, controleer of de schapen niet te veel eten en of er geen verkeerde planten zoals buxus in het weiland staan. Als de voeding goed is, denk dan aan ontwormen.</answer>
 		<answer value="Wormeninfectie">Het lijkt erop dat de schapen last hebben van wormen.</answer>
-
-	</goal>
+		<answer value="Hooiprobleem">Het lijkt erop dat er iets mis is met het hooi.</answer>
+		<answer value="Bixprobleem">Het lijkt erop dat er iets mis is met de bix.</answer>
+		<answer value="Onbekend">Sorry, we kunnen je niet helpen. Bel de dierenarts voor advies.</answer>
+		<answer value="CasousLymfadenitis">Het lijkt erop dat dit Casous Lymfadenitis is. DIT IS EEN AANGIFTEPLICHTIGE AANDOENING. Open de abcessen niet vanwegen het risico op overdracht (zoonose).</answer>
+		<answer value="Abcessen">Dit lijken abcessen van de huid te zijn. Deze kunnen veroorzaakt woorden door doornen (sleedoorn bijvoorbeeld).</answer>
+		<answer value="StrawberryFootrot">Dit lijkt Strawberry Footrot te zijn, een gemengde infectie van ecthyma met de bacterie Dermatophylus congolensis. Dieren hebben bij deze aandoening een slechte kans op herstellen. Draag altijd handschoenen bij de behandeling.</answer>
+		<answer value="WondinfectieOppervlakkig">Dit is een oppervlakkige ontsteking van een opgelopen wond. Behandel met CTC-spray.</answer>
+		<answer value="WondinfectieDiep">Dit is een onsteking van een diepere wond. Behandel met antibiotica en CTC-spray.</answer>
+		<answer	value="Dermatophylose">Dit lijkt op Dermatophylose, een oppervlakkige huidonsteking. Behandel de oppervlakkige wonden met CTC-spray of jodine. Na een paar weken kan er een spontane genezing zijn.</answer>
+</goal>
 
 <!-- RULES -->
 
+<!--Wormen-->
 <rule>
-	<description>Qualifications for Dog</description>
+	<description>Wormeninfectie</description>
 	<if>
 		<and>
-			<fact name="Hiking_person">yes</fact>
-			<or>
-				<fact name="play">yes</fact>
-				<fact name="cuddle">yes</fact>
-			</or>
+			<fact name="Orgaan">maagdarm</fact>
+			<fact name="Locatie">buiten</fact>
+			<fact name="Voeding">gelijk</fact>
 		</and>
 	</if>
 	<then>
-		<fact name="pet">Dog</fact>
+		<fact name="Action">Wormeninfectie</fact>
 	</then>
 </rule>
 
+<rule>
+	<description>Voedingsprobleem</description>
+	<if>
+		<and>
+			<fact name="Orgaan">maagdarm</fact>
+			<fact name="Locatie">buiten</fact>
+			<fact name="Voeding">veranderd</fact>
+		</and>
+	</if>
+	<then>
+		<fact name="Action">Voedingsprobleem</fact>
+	</then>
+</rule>
+
+<rule>
+	<description>Hooiprobleem</description>
+	<if>
+		<and>
+			<fact name="Orgaan">maagdarm</fact>
+			<fact name="Locatie">binnen</fact>
+			<fact name="Voedingssoort">hooi</fact>
+		</and>
+	</if>
+	<then>
+		<fact name="Action">Hooiprobleem</fact>
+	</then>
+</rule>
+
+<rule>
+	<description>Bixprobleem</description>
+	<if>
+		<and>
+			<fact name="Orgaan">maagdarm</fact>
+			<fact name="Locatie">binnen</fact>
+			<fact name="Voedingssoort">bix</fact>
+		</and>
+	</if>
+	<then>
+		<fact name="Action">Bixprobleem</fact>
+	</then>
+</rule>
+
+<rule>
+	<description>Onbekend</description>
+	<if>
+		<and>
+			<fact name="Orgaan">maagdarm</fact>
+			<fact name="Locatie">binnen</fact>
+			<fact name="Voeding">veranderd</fact>
+		</and>
+	</if>
+	<then>
+		<fact name="Action">Onbekend</fact>
+	</then>
+</rule>
+
+<rule>
+	<description>CL</description>
+	<if>
+		<and>
+			<fact name="Orgaan">huidslijmvliezen</fact>
+			<fact name="HuidSymptoom">knobbels</fact>
+			<fact name="KnobbelType">hard</fact>
+		</and>
+	</if>
+	<then>
+		<fact name="Action">CasousLymfadenitis</fact>
+	</then>
+</rule>
+
+<rule>
+	<description>Abcessen</description>
+	<if>
+		<and>
+			<fact name="Orgaan">huidslijmvliezen</fact>
+			<fact name="HuidSymptoom">knobbels</fact>
+			<fact name="KnobbelType">zacht</fact>
+		</and>
+	</if>
+	<then>
+		<fact name="Action">Abcessen</fact>
+	</then>
+</rule>
+
+<rule>
+	<description>StrawberryFootrot</description>
+	<if>
+		<and>
+			<fact name="Orgaan">huidslijmvliezen</fact>
+			<fact name="HuidSymptoom">ontsteking</fact>
+			<fact name="InfectieType">gezwollen</fact>
+		</and>
+	</if>
+	<then>
+		<fact name="Action">StrawberryFootrot</fact>
+	</then>
+</rule>
+
+<rule>
+	<description>WondinfectieOppervlakkig</description>
+	<if>
+		<and>
+			<fact name="Orgaan">huidslijmvliezen</fact>
+			<fact name="HuidSymptoom">ontsteking</fact>
+			<fact name="InfectieType">wond</fact>
+			<fact name="WondType">oppervlakkig</fact>
+		</and>
+	</if>
+	<then>
+		<fact name="Action">WondinfectieOppervlakkig</fact>
+	</then>
+</rule>
+
+<rule>
+	<description>WondinfectieDiep</description>
+	<if>
+		<and>
+			<fact name="Orgaan">huidslijmvliezen</fact>
+			<fact name="HuidSymptoom">ontsteking</fact>
+			<fact name="InfectieType">wond</fact>
+			<fact name="WondType">diep</fact>
+		</and>
+	</if>
+	<then>
+		<fact name="Action">WondinfectieDiep</fact>
+	</then>
+</rule>
+
+<rule>
+	<description>Dermatophylose</description>
+	<if>
+		<and>
+			<fact name="Orgaan">huidslijmvliezen</fact>
+			<fact name="HuidSymptoom">ontsteking</fact>
+			<fact name="InfectieType">oppervlakkig</fact>
+		</and>
+	</if>
+	<then>
+		<fact name="Action">Dermatophylose</fact>
+	</then>
+</rule>
 
 <!--Basic knowledge we need-->
 <!--Food/grazingplan-->
 <!--Time of the year-->
 <!--Age-->
 <!--Organsystem (what organ is damaged?)-->
+<!--Condition-->
 <!--How many animals are sick?-->
-<!--Accuut/chronic-->
+<!--Acuut/chronic-->
 <!--Is the sheep pregnant-->
 <!--Temperature of the sheep-->
 
@@ -123,6 +272,322 @@
 	</option>
 </question>
 
+<question>
+	<description>Hoe oud zijn de schapen?</description>
+	<option>
+		<description>Het zijn lammeren.</description>
+		<then>
+			<fact name="Leeftijd">lam</fact>
+		</then>
+	</option>
+	<option>
+		<description>Het zijn jaarlingen.</description>
+		<then>
+			<fact name="Leeftijd">jaarling</fact>
+		</then>
+	</option>
+	<option>
+		<description>Het zijn volwassen schapen.</description>
+		<then>
+			<fact name="Leeftijd">volwassen</fact>
+		</then>
+	</option>
+</question>
 
+<question>
+	<description>Welk orgaansysteem is aangetast?</description>
+	<option>
+		<description>Het gaat om het maag- of darmstelsel.</description>
+		<then>
+			<fact name="Orgaan">maagdarm</fact>
+		</then>
+	</option>
+	<option>
+		<description>Het schaap is kreupel.</description>
+		<then>
+			<fact name="Orgaan">kreupelheid</fact>
+		</then>
+	</option>	
+	<option>
+		<description>Het gaat om de ogen.</description>
+		<then>
+			<fact name="Orgaan">ogen</fact>
+		</then>
+	</option>	
+	<option>
+		<description>Het gaat om de huid en/of slijmvliezen.</description>
+		<then>
+			<fact name="Orgaan">huidslijmvliezen</fact>
+		</then>
+	</option>	
+	<option>
+		<description>Het gaat om de neus en/of longen.</description>
+		<then>
+			<fact name="Orgaan">neuslongen</fact>
+		</then>
+	</option>
+	<option>
+		<description>Het gaat om het gedrag, de houding of de gang.</description>
+		<then>
+			<fact name="Orgaan">gedraghoudinggang</fact>
+		</then>
+	</option>
+	<option>
+		<description>Het schaap komt niet meer overeind.</description>
+		<then>
+			<fact name="Orgaan">overeind</fact>
+		</then>
+	</option>
+	<option>
+		<description>Het gaat om de wol.</description>
+		<then>
+			<fact name="Orgaan">wol</fact>
+		</then>
+	</option>	
+	<option>
+		<description>Weet ik niet.</description>
+		<then>
+			<fact name="Orgaan">onbekend</fact>
+		</then>
+	</option>	
+</question>
+
+<question>
+	<description>Hoe is de conditie van het schaap op een schaal van 1 tot 5 waar 1 heel slecht is en 5 heel goed?</description>
+	<option>
+		<description>1</description>
+		<then>
+			<fact name="Conditie">een</fact>
+		</then>
+	</option>
+	<option>
+		<description>2</description>
+		<then>
+			<fact name="Conditie">twee</fact>
+		</then>
+	</option>
+	<option>
+		<description>3</description>
+		<then>
+			<fact name="Conditie">drie</fact>
+		</then>
+	</option>
+	<option>
+		<description>4</description>
+		<then>
+			<fact name="Conditie">vier</fact>
+		</then>
+	</option>
+	<option>
+		<description>5</description>
+		<then>
+			<fact name="Conditie">vijf</fact>
+		</then>
+	</option>
+</question>
+
+<question>
+	<description>Hoeveel schapen ervaren deze problemen?</description>
+	<option>
+		<description>Het gaat om minder dan 5 schapen.</description>
+		<then>
+			<fact name="Aantal">vijf</fact>
+		</then>
+	</option>
+	<option>
+		<description>Het gaat om 5 tot 15 schapen.</description>
+		<then>
+			<fact name="Aantal">vijftien</fact>
+		</then>
+	</option>
+	<option>
+		<description>Het gaat 15 tot 50 schapen.</description>
+		<then>
+			<fact name="Aantal">vijftig</fact>
+		</then>
+	</option>
+	<option>
+		<description>Het gaat om meer dan 50 schapen.</description>
+		<then>
+			<fact name="Aantal">meerdanvijftig</fact>
+		</then>
+	</option>
+</question>
+
+<question>
+	<description>Gaat het om een acuut of chronisch probleem?</description>
+	<option>
+		<description>Acuut, het probleem is plotseling opgetreden en wordt snel erger.</description>
+		<then>
+			<fact name="Aardprobleem">acuut</fact>
+		</then>
+	</option>
+	<option>
+		<description>Chronisch, het probleem speelt al langere tijd.</description>
+		<then>
+			<fact name="Aardprobleem">chronisch</fact>
+		</then>
+	</option>
+</question>
+
+<question>
+	<description>Is het schaap drachtig?</description>
+	<option>
+		<description>Ja.</description>
+		<then>
+			<fact name="Drachtig">ja</fact>
+		</then>
+	</option>
+	<option>
+		<description>Nee.</description>
+		<then>
+			<fact name="Drachtig">nee</fact>
+		</then>
+	</option>
+	<option>
+		<description>Dat weet ik niet.</description>
+		<then>
+			<fact name="Drachtig">onbekend</fact>
+		</then>
+	</option>
+</question>
+
+<question>
+	<description>Heeft het schaap een veranderde temperatuur?</description>
+	<option>
+		<description>Ja, het schaap heeft een verhoogde temperatuur.</description>
+		<then>
+			<fact name="Temperatuur">hoog</fact>
+		</then>
+	</option>
+	<option>
+		<description>Ja, het schaap heeft een verlaagde temperatuur.</description>
+		<then>
+			<fact name="Temperatuur">laag</fact>
+		</then>
+	</option>
+	<option>
+		<description>Nee, de temperatuur is normaal.</description>
+		<then>
+			<fact name="Temperatuur">normaal</fact>
+		</then>
+	</option>
+</question>
+
+<question>
+	<description>Welk jaargetijde is het?</description>
+	<option>
+		<description>Lente.</description>
+		<then>
+			<fact name="Jaargetijde">lente</fact>
+		</then>
+	</option>
+	<option>
+		<description>Zomer.</description>
+		<then>
+			<fact name="Jaargetijde">zomer</fact>
+		</then>
+	</option>
+	<option>
+		<description>Herfst.</description>
+		<then>
+			<fact name="Jaargetijde">herfst</fact>
+		</then>
+	</option>
+	<option>
+		<description>Winter.</description>
+		<then>
+			<fact name="Jaargetijde">winter</fact>
+		</then>
+	</option>
+</question>
+
+<question>
+	<description>Wat is er te zien op de huid?</description>
+	<option>
+		<description>Er zijn knobbels in de huid.</description>
+		<then>
+			<fact name="HuidSymptoom">knobbel</fact>
+		</then>
+	</option>
+	<option>
+		<description>Er lijkt een ontsteking te zijn.</description>
+		<then>
+			<fact name="HuidSymptoom">ontsteking</fact>
+		</then>
+	</option>
+	<option>
+		<description>Geen van bovenstaande</description>
+		<then>
+			<fact name="HuidSymptoom">onbekend</fact>
+		</then>
+	</option>
+</question>
+
+<question>
+	<description>Wat voor knobbels zijn het?</description>
+	<option>
+		<description>De knobbels in de huid zijn hard.</description>
+		<then>
+			<fact name="KnobbelType">hard</fact>
+		</then>
+	</option>
+	<option>
+		<description>De knobbels in de huid zijn zacht en gevuld met pus.</description>
+		<then>
+			<fact name="KnobbelType">zacht</fact>
+		</then>
+	</option>
+	<option>
+		<description>Geen van bovenstaande</description>
+		<then>
+			<fact name="KnobbelType">onbekend</fact>
+		</then>
+	</option>
+</question>
+
+<question>
+	<description>Om wat voor ontsteking gaat het?</description>
+	<option>
+		<description>Het is een ontsteking veroorzaakt door een wond</description>
+		<then>
+			<fact name="InfectieType">wond</fact>
+		</then>
+	</option>
+	<option>
+		<description>Het is een oppervlakkige onsteking van de huid.</description>
+		<then>
+			<fact name="InfectieType">oppervlakkig</fact>
+		</then>
+	</option>
+	<option>
+		<description>Het is een gezwollen, bloederige ontsteking.</description>
+		<then>
+			<fact name="InfectieType">gezwollen</fact>
+		</then>
+	</option>
+	<option>
+		<description>Geen van bovenstaande</description>
+		<then>
+			<fact name="InfectieType">onbekend</fact>
+		</then>
+	</option>
+</question>
+
+<question>
+	<description>Is de wond diep en/of veroorzaakt door een hond?</description>
+	<option>
+		<description>Ja</description>
+		<then>
+			<fact name="WondType">diep</fact>
+		</then>
+	</option>
+	<option>
+		<description>Nee</description>
+		<then>
+			<fact name="WondType">oppervlakkig</fact>
+		</then>
+	</option>
+</question>
 
 </knowledge>
