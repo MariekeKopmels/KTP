@@ -20,6 +20,7 @@
 		<answer value="WondinfectieOppervlakkig">Dit is een oppervlakkige ontsteking van een opgelopen wond. Behandel met CTC-spray.</answer>
 		<answer value="WondinfectieDiep">Dit is een onsteking van een diepere wond. Behandel met antibiotica en CTC-spray.</answer>
 		<answer	value="Dermatophylose">Dit lijkt op Dermatophylose, een oppervlakkige huidonsteking. Behandel de oppervlakkige wonden met CTC-spray of jodine. Na een paar weken kan er een spontane genezing zijn.</answer>
+		<answer value="$undefined">There does not seem to be an answer to your problem in this database. Contact your veterinarian to discuss this problem further.</answer>
 </goal>
 
 <!-- RULES -->
