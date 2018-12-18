@@ -6,6 +6,15 @@
 <!-- GOALS -->
 
 	<goal name="Action">
+		<answer value="Longontsteking">Het lijkt erop dat het schaap last heeft van een longontsteking.</answer>
+		<answer value="LongontstekingMiss">Het zou kunnen dat het schaap last heeft van een longontsteking. Het aantal symptomen is echter nog te weinig om dit met zekerheid te kunnen zeggen.</answer>
+		<answer value="Zomerlongontsteking">Het lijkt erop dat het schaap last heeft van een zomerlongontsteking.</answer>
+		<answer value="ZomerlongontstekingMiss">Het zou kunnen dat het schaap last heeft van een zomerlongontsteking. Het aantal symptomen is echter nog te weinig om dit met zekerheid te kunnen zeggen.</answer>
+		<answer value="Zwoegerziekte">Het lijkt erop dat het schaap last heeft van een zwoegerziekte.</answer>
+		<answer value="ZwoegerziekteMiss">Het zou kunnen dat het schaap last heeft van een zwoegerziekte. Het aantal symptomen is echter nog te weinig om dit met zekerheid te kunnen zeggen.</answer>
+		<answer value="VerscheuringMiddenrif">Het lijkt erop dat het schaap last heeft van een verscheuring van het middenrif.</answer>
+		<answer value="VerscheuringMiddenrifMiss">Het zou kunnen dat het schaap last heeft van een verscheuring van het middenrif. Het aantal symptomen is echter nog te weinig om dit met zekerheid te kunnen zeggen.</answer>
+
 		<answer value="DierenartsUrgent">Bel zo snel mogelijk de dierenarts.</answer>
 		<answer value="Dierenarts">Bel de dierenarts.</answer>
 		<answer value="Aangifteplichtig">Je moet deze mogelijke ziekte melden bij autoriteiten.</answer>
@@ -21,574 +30,1180 @@
 		<answer value="WondinfectieDiep">Dit is een onsteking van een diepere wond. Behandel met antibiotica en CTC-spray.</answer>
 		<answer	value="Dermatophylose">Dit lijkt op Dermatophylose, een oppervlakkige huidonsteking. Behandel de oppervlakkige wonden met CTC-spray of jodine. Na een paar weken kan er een spontane genezing zijn.</answer>
 		<answer>There does not seem to be an answer to your problem in this database. Contact your veterinarian to discuss this problem further.</answer>
-</goal>
+	
+		<answer value="Tetanus">Het lijkt erop dat de schapen last hebben van Klem (Tetanus). Zien we nogal eens  bij lammeren van een paar dagen oud. Soms bij ooien na scheren, of na aflammeren. Wanneer de schapen nog niet overleden zijn, kun je ze in een rustige donkere omgeving leggen, meestal is sterfte het gevolg. In het vervolg is het belangrijk om de navel goed ontsmetten en wonden ontsmetten met jodium. </answer>
+   	    <answer value="TetanusMiss">Het zou kunnnen dat de schapen last hebben van Klem (Tetanus). Het aantal symptomen is echter nog te weinig om dit met zekerheid vast te kunnen stellen. Het goed om de volgende symptomen [symptomen] in de gaten te houden en de dierenarts te contacteren wanneer deze voorkomen.</answer> 
+        <answer value="Listeria">Het lijkt erop dat de schapen last hebben van Listeria. Dit kan voorkomen door het voeren van beschimmelde kuil of doordat het grasland aan het rotten is. [bij verwerpen, zoonose] Waarschuw de dierenarts.</answer>
+        <answer value="ListeriaMiss">Het zou kunnen dat de schapen last hebben van Listeria. Het aantal symptomen is echter nog te weinig om dit met zekerheid vast te kunnen stellen. Het goed om de volgende symptomen [symptomen] in de gaten te houden en de dierenarts te contacteren wanneer deze voorkomen.</answer>
+        <answer value="Scrapie"> Het lijkt erop dat de schapen last hebben van Scrapie. Dit is een aangifteplichtige ziekte, dus bel direct de autoriteiten.</answer>
+        <answer value="ScrapieMiss">Het zou kunnen dat de schapen last hebben van Scrapie. Het aantal symptomen is echter nog te weinig om dit met zekerheid vast te kunnen stellen. Het goed om de volgende symptomen [symptomen] in de gaten te houden en de dierenarts te contacteren wanneer deze voorkomen.</answer>
+        <answer value="Dierenarts"> Het is onduidelijk, contacteer de dierenarts.</answer>
+
+	</goal>
 
 <!-- RULES -->
 
 <!--Wormen-->
+	<rule>
+		<description>Wormeninfectie</description>
+		<if>
+			<and>
+				<fact name="Orgaan">maagdarm</fact>
+				<fact name="Locatie">buiten</fact>
+				<fact name="Voeding">gelijk</fact>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">Wormeninfectie</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>Voedingsprobleem</description>
+		<if>
+			<and>
+				<fact name="Orgaan">maagdarm</fact>
+				<fact name="Locatie">buiten</fact>
+				<fact name="Voeding">veranderd</fact>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">Voedingsprobleem</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>Hooiprobleem</description>
+		<if>
+			<and>
+				<fact name="Orgaan">maagdarm</fact>
+				<fact name="Locatie">binnen</fact>
+				<fact name="Voedingssoort">hooi</fact>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">Hooiprobleem</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>Bixprobleem</description>
+		<if>
+			<and>
+				<fact name="Orgaan">maagdarm</fact>
+				<fact name="Locatie">binnen</fact>
+				<fact name="Voedingssoort">bix</fact>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">Bixprobleem</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>Onbekend</description>
+		<if>
+			<and>
+				<fact name="Orgaan">maagdarm</fact>
+				<fact name="Locatie">binnen</fact>
+				<fact name="Voeding">veranderd</fact>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">Onbekend</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>CL</description>
+		<if>
+			<and>
+				<fact name="Orgaan">huidslijmvliezen</fact>
+				<fact name="HuidSymptoom">knobbels</fact>
+				<fact name="KnobbelType">hard</fact>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">CasousLymfadenitis</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>Abcessen</description>
+		<if>
+			<and>
+				<fact name="Orgaan">huidslijmvliezen</fact>
+				<fact name="HuidSymptoom">knobbels</fact>
+				<fact name="KnobbelType">zacht</fact>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">Abcessen</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>StrawberryFootrot</description>
+		<if>
+			<and>
+				<fact name="Orgaan">huidslijmvliezen</fact>
+				<fact name="HuidSymptoom">ontsteking</fact>
+				<fact name="InfectieType">gezwollen</fact>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">StrawberryFootrot</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>WondinfectieOppervlakkig</description>
+		<if>
+			<and>
+				<fact name="Orgaan">huidslijmvliezen</fact>
+				<fact name="HuidSymptoom">ontsteking</fact>
+				<fact name="InfectieType">wond</fact>
+				<fact name="WondType">oppervlakkig</fact>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">WondinfectieOppervlakkig</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>WondinfectieDiep</description>
+		<if>
+			<and>
+				<fact name="Orgaan">huidslijmvliezen</fact>
+				<fact name="HuidSymptoom">ontsteking</fact>
+				<fact name="InfectieType">wond</fact>
+				<fact name="WondType">diep</fact>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">WondinfectieDiep</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>Dermatophylose</description>
+		<if>
+			<and>
+				<fact name="Orgaan">huidslijmvliezen</fact>
+				<fact name="HuidSymptoom">ontsteking</fact>
+				<fact name="InfectieType">oppervlakkig</fact>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">Dermatophylose</fact>
+		</then>
+	</rule>
+
+	<!-- Rules neus/longen -->
+
+	<rule>
+		<description>Mogelijk Longontsteking</description>
+		<if>
+			<or>
+				<fact name="SympLongontsteking">twee</fact>
+				<fact name="SympLongontsteking">drie</fact>
+				<fact name="SympLongontsteking">vier</fact>
+			</or>
+		</if>
+		<then>
+			<fact name="Action">LongontstekingMiss</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>Longontsteking</description>
+		<if>
+			<and>
+				<fact name="SympLongontsteking">vijf</fact>
+				<fact name="SympLongontsteking">zes</fact>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">Longontsteking</fact>
+		</then>
+	</rule>	
+
+	<rule>
+		<description>Mogelijk Zomerlongontsteking</description>
+		<if>
+			<or>
+				<fact name="SympZomerlongontsteking">twee</fact>
+				<fact name="SympZomerlongontsteking">drie</fact>
+			</or>
+		</if>
+		<then>
+			<fact name="Action">ZomerlongontstekingMiss</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>Zomerlongontsteking</description>
+		<if>
+			<and>
+				<fact name="SympZomerlongontsteking">vier</fact>
+				<fact name="SympZomerlongontsteking">vijf</fact>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">Zomerlongontsteking</fact>
+		</then>
+	</rule>	
+
+	<rule>
+		<description>Mogelijk Verscheuring Middenrif</description>
+		<if>
+			<or>
+				<fact name="SympVerscheuringMiddenrif">twee</fact>
+				<fact name="SympVerscheuringMiddenrif">drie</fact>
+			</or>
+		</if>
+		<then>
+			<fact name="Action">VerscheuringMiddenrifMiss</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>Verscheuring Middenrif</description>
+		<if>
+			<and>
+				<fact name="SympVerscheuringMiddenrif">vier</fact>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">VerscheuringMiddenrif</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>Mogelijk Zwoegerziekte</description>
+		<if>
+			<or>
+				<fact name="SympZwoegerziekte">twee</fact>
+				<fact name="SympZwoegerziekte">drie</fact>
+			</or>
+		</if>
+		<then>
+			<fact name="Action">ZwoegerziekteMiss</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>Zwoegerziekte</description>
+		<if>
+			<and>
+				<fact name="SympZwoegerziekte">vier</fact>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">Zwoegerziekte</fact>
+		</then>
+	</rule>	
+
+<!--Tetanus-->
+
 <rule>
-	<description>Wormeninfectie</description>
-	<if>
-		<and>
-			<fact name="Orgaan">maagdarm</fact>
-			<fact name="Locatie">buiten</fact>
-			<fact name="Voeding">gelijk</fact>
-		</and>
-	</if>
-	<then>
-		<fact name="Action">Wormeninfectie</fact>
-	</then>
+    <description>Tetanus</description>
+        <if>
+            <or>
+             <fact name="SympTetanus">vier</fact>
+             <fact name="SympTetanus">vijf</fact>
+             <fact name="SympTetanus">zes</fact>
+             <fact name="SympTetanus">zeven</fact>
+            </or>
+        </if>
+        <then>
+            <fact name="Action">Tetanus</fact>
+        </then>
 </rule>
 
 <rule>
-	<description>Voedingsprobleem</description>
-	<if>
-		<and>
-			<fact name="Orgaan">maagdarm</fact>
-			<fact name="Locatie">buiten</fact>
-			<fact name="Voeding">veranderd</fact>
-		</and>
-	</if>
-	<then>
-		<fact name="Action">Voedingsprobleem</fact>
-	</then>
+    <description>Mogelijk Tetanus, maar weinig symptomen</description>
+        <if>
+            <or>
+             <fact name="SympTetanus">twee</fact>
+             <fact name="SympTetanus">drie</fact>
+            </or>
+        </if>
+        <then>
+            <fact name="Action">TetanusMiss</fact>
+        </then>
+</rule>
+
+
+<!--Listeria-->
+
+<rule>
+    <description>Listeria</description>
+        <if>
+            <or>
+             <fact name="SympListeria">vier</fact>
+             <fact name="SympListeria">vijf</fact>
+             <fact name="SympListeria">zes</fact>
+             <fact name="SympListeria">zeven</fact>
+             <fact name="SympListeria">acht</fact>
+             <fact name="SympListeria">negen</fact>
+            </or>
+        </if>
+        <then>
+            <fact name="Action">Listeria</fact>
+        </then>
 </rule>
 
 <rule>
-	<description>Hooiprobleem</description>
-	<if>
-		<and>
-			<fact name="Orgaan">maagdarm</fact>
-			<fact name="Locatie">binnen</fact>
-			<fact name="Voedingssoort">hooi</fact>
-		</and>
-	</if>
-	<then>
-		<fact name="Action">Hooiprobleem</fact>
-	</then>
+    <description>Mogelijk Listeria, maar weinig symptomen</description>
+        <if>
+            <or>
+             <fact name="SympListeria">drie</fact>
+             <fact name="SympListeria">twee</fact>
+            </or>
+        </if>
+        <then>
+            <fact name="Action">ListeriaMiss</fact>
+        </then>
+</rule>
+
+
+<!--Scrapie-->
+
+<rule>
+    <description>Scrapie</description>
+        <if>
+            <or>
+             <fact name="SympScrapie">vier</fact>
+             <fact name="SympScrapie">vijf</fact>
+             <fact name="SympScrapie">zes</fact>
+             <fact name="SympScrapie">zeven</fact>
+             <fact name="SympScrapie">acht</fact>
+             <fact name="SympScrapie">negen</fact>
+            </or>
+        </if>
+        <then>
+            <fact name="Action">Scrapie</fact>
+        </then>
 </rule>
 
 <rule>
-	<description>Bixprobleem</description>
-	<if>
-		<and>
-			<fact name="Orgaan">maagdarm</fact>
-			<fact name="Locatie">binnen</fact>
-			<fact name="Voedingssoort">bix</fact>
-		</and>
-	</if>
-	<then>
-		<fact name="Action">Bixprobleem</fact>
-	</then>
+    <description>Mogelijk Scrapie, maar weinig symptomen</description>
+        <if>
+            <or>
+             <fact name="SympScrapie">drie</fact>
+             <fact name="SympScrapie">twee</fact>
+            </or>
+        </if>
+        <then>
+            <fact name="Action">ScrapieMiss</fact>
+        </then>
 </rule>
 
-<rule>
-	<description>Onbekend</description>
-	<if>
-		<and>
-			<fact name="Orgaan">maagdarm</fact>
-			<fact name="Locatie">binnen</fact>
-			<fact name="Voeding">veranderd</fact>
-		</and>
-	</if>
-	<then>
-		<fact name="Action">Onbekend</fact>
-	</then>
-</rule>
 
-<rule>
-	<description>CL</description>
-	<if>
-		<and>
-			<fact name="Orgaan">huidslijmvliezen</fact>
-			<fact name="HuidSymptoom">knobbels</fact>
-			<fact name="KnobbelType">hard</fact>
-		</and>
-	</if>
-	<then>
-		<fact name="Action">CasousLymfadenitis</fact>
-	</then>
-</rule>
 
-<rule>
-	<description>Abcessen</description>
-	<if>
-		<and>
-			<fact name="Orgaan">huidslijmvliezen</fact>
-			<fact name="HuidSymptoom">knobbels</fact>
-			<fact name="KnobbelType">zacht</fact>
-		</and>
-	</if>
-	<then>
-		<fact name="Action">Abcessen</fact>
-	</then>
-</rule>
+	<!--Basic knowledge we need-->
+	<!--Food/grazingplan-->
+	<!--Time of the year-->
+	<!--Age-->
+	<!--Organsystem (what organ is damaged?)-->
+	<!--Condition-->
+	<!--How many animals are sick?-->
+	<!--Acuut/chronic-->
+	<!--Is the sheep pregnant-->
+	<!--Temperature of the sheep-->
 
-<rule>
-	<description>StrawberryFootrot</description>
-	<if>
-		<and>
-			<fact name="Orgaan">huidslijmvliezen</fact>
-			<fact name="HuidSymptoom">ontsteking</fact>
-			<fact name="InfectieType">gezwollen</fact>
-		</and>
-	</if>
-	<then>
-		<fact name="Action">StrawberryFootrot</fact>
-	</then>
-</rule>
+	<!-- Vragen Situatieschets -->
+	<question>
+		<description>Is het beweidingsplan van de schapen recentelijk veranderd?</description>
+		<option>
+			<description>Ja, de schapen zijn van binnen naar buiten gegaan.</description>
+			<then>
+				<fact name="Voeding">veranderd</fact>
+				<fact name="Locatie">buiten</fact>
+			</then>
+		</option>
+		<option>
+			<description>Ja, de schapen zijn van buiten naar binnen gegaan.</description>
+			<then>
+				<fact name="Voeding">veranderd</fact>
+				<fact name="Locatie">binnen</fact>
+			</then>
+		</option>
+		<option>
+			<description>Ja, de schapen staan op een nieuw weiland.</description>
+			<then>
+				<fact name="Voeding">veranderd</fact>
+				<fact name="Locatie">buiten</fact>
+			</then>
+		</option>
+		<option>
+			<description>Nee, de schapen staan nog steeds binnen.</description>
+			<then>
+				<fact name="Voeding">gelijk</fact>
+				<fact name="Locatie">binnen</fact>
+			</then>
+		</option>
+		<option>
+			<description>Nee, de schapen staan nog steeds buiten.</description>
+			<then>
+				<fact name="Voeding">gelijk</fact>
+				<fact name="Locatie">buiten</fact>
+			</then>
+		</option>
+	</question>
 
-<rule>
-	<description>WondinfectieOppervlakkig</description>
-	<if>
-		<and>
-			<fact name="Orgaan">huidslijmvliezen</fact>
-			<fact name="HuidSymptoom">ontsteking</fact>
-			<fact name="InfectieType">wond</fact>
-			<fact name="WondType">oppervlakkig</fact>
-		</and>
-	</if>
-	<then>
-		<fact name="Action">WondinfectieOppervlakkig</fact>
-	</then>
-</rule>
+	<question>
+		<description>Is de voedingssoort veranderd?</description>
+		<option>
+			<description>Ja, de schapen krijgen bix, eerst kregen ze een andere soort bix.</description>
+			<then>
+				<fact name="Voedingssoort">bix</fact>
+				<fact name="Voeding">gelijk</fact>
+				<!--Een verschil in soort bix wordt niet als verandering in voeding gezien-->
+			</then>
+		</option>
+		<option>
+			<description>Ja, de schapen krijgen hooi, eerst kregen ze bix.</description>
+			<then>
+				<fact name="Voedingssoort">hooi</fact>
+				<fact name="Voeding">veranderd</fact>
+			</then>
+		</option>
+		<option>
+			<description>Ja, de schapen krijgen bix, eerst kregen ze hooi.</description>
+			<then>
+				<fact name="Voedingssoort">bix</fact>
+				<fact name="Voeding">veranderd</fact>
+			</then>
+		</option>
+		<option>
+			<description>Nee, ze krijgen nog steeds bix.</description>
+			<then>
+				<fact name="Voedingssoort">bix</fact>
+				<fact name="Voeding">gelijk</fact>
+			</then>
+		</option>
+		<option>
+			<description>Nee, ze krijgen nog steeds hooi.</description>
+			<then>
+				<fact name="Voedingssoort">hooi</fact>
+				<fact name="Voeding">gelijk</fact>
+			</then>
+		</option>
+	</question>
 
-<rule>
-	<description>WondinfectieDiep</description>
-	<if>
-		<and>
-			<fact name="Orgaan">huidslijmvliezen</fact>
-			<fact name="HuidSymptoom">ontsteking</fact>
-			<fact name="InfectieType">wond</fact>
-			<fact name="WondType">diep</fact>
-		</and>
-	</if>
-	<then>
-		<fact name="Action">WondinfectieDiep</fact>
-	</then>
-</rule>
+	<question>
+		<description>Hoe oud zijn de schapen?</description>
+		<option>
+			<description>Het zijn lammeren.</description>
+			<then>
+				<fact name="Leeftijd">lam</fact>
+			</then>
+		</option>
+		<option>
+			<description>Het zijn jaarlingen.</description>
+			<then>
+				<fact name="Leeftijd">jaarling</fact>
+			</then>
+		</option>
+		<option>
+			<description>Het zijn volwassen schapen.</description>
+			<then>
+				<fact name="Leeftijd">volwassen</fact>
+			</then>
+		</option>
+	</question>
 
-<rule>
-	<description>Dermatophylose</description>
-	<if>
-		<and>
-			<fact name="Orgaan">huidslijmvliezen</fact>
-			<fact name="HuidSymptoom">ontsteking</fact>
-			<fact name="InfectieType">oppervlakkig</fact>
-		</and>
-	</if>
-	<then>
-		<fact name="Action">Dermatophylose</fact>
-	</then>
-</rule>
+	<question>
+		<description>Welk orgaansysteem is aangetast?</description>
+		<option>
+			<description>Het gaat om het maag- of darmstelsel.</description>
+			<then>
+				<fact name="Orgaan">maagdarm</fact>
+			</then>
+		</option>
+		<option>
+			<description>Het schaap is kreupel.</description>
+			<then>
+				<fact name="Orgaan">kreupelheid</fact>
+			</then>
+		</option>	
+		<option>
+			<description>Het gaat om de ogen.</description>
+			<then>
+				<fact name="Orgaan">ogen</fact>
+			</then>
+		</option>	
+		<option>
+			<description>Het gaat om de huid en/of slijmvliezen.</description>
+			<then>
+				<fact name="Orgaan">huidslijmvliezen</fact>
+			</then>
+		</option>	
+		<option>
+			<description>Het gaat om de neus en/of longen.</description>
+			<then>
+				<fact name="Orgaan">neuslongen</fact>
+			</then>
+		</option>
+		<option>
+			<description>Het gaat om het gedrag, de houding of de gang.</description>
+			<then>
+				<fact name="Orgaan">gedraghoudinggang</fact>
+			</then>
+		</option>
+		<option>
+			<description>Het schaap komt niet meer overeind.</description>
+			<then>
+				<fact name="Orgaan">overeind</fact>
+			</then>
+		</option>
+		<option>
+			<description>Het gaat om de wol.</description>
+			<then>
+				<fact name="Orgaan">wol</fact>
+			</then>
+		</option>	
+		<option>
+			<description>Weet ik niet.</description>
+			<then>
+				<fact name="Orgaan">onbekend</fact>
+			</then>
+		</option>	
+	</question>
 
-<!--Basic knowledge we need-->
-<!--Food/grazingplan-->
-<!--Time of the year-->
-<!--Age-->
-<!--Organsystem (what organ is damaged?)-->
-<!--Condition-->
-<!--How many animals are sick?-->
-<!--Acuut/chronic-->
-<!--Is the sheep pregnant-->
-<!--Temperature of the sheep-->
+	<question>
+		<description>Hoe is de conditie van het schaap op een schaal van 1 tot 5 waar 1 heel slecht is en 5 heel goed?</description>
+		<option>
+			<description>1</description>
+			<then>
+				<fact name="Conditie">een</fact>
+			</then>
+		</option>
+		<option>
+			<description>2</description>
+			<then>
+				<fact name="Conditie">twee</fact>
+			</then>
+		</option>
+		<option>
+			<description>3</description>
+			<then>
+				<fact name="Conditie">drie</fact>
+			</then>
+		</option>
+		<option>
+			<description>4</description>
+			<then>
+				<fact name="Conditie">vier</fact>
+			</then>
+		</option>
+		<option>
+			<description>5</description>
+			<then>
+				<fact name="Conditie">vijf</fact>
+			</then>
+		</option>
+	</question>
 
-<!-- QUESTIONS -->
+	<question>
+		<description>Hoeveel schapen ervaren deze problemen?</description>
+		<option>
+			<description>Het gaat om minder dan 5 schapen.</description>
+			<then>
+				<fact name="Aantal">vijf</fact>
+			</then>
+		</option>
+		<option>
+			<description>Het gaat om 5 tot 15 schapen.</description>
+			<then>
+				<fact name="Aantal">vijftien</fact>
+			</then>
+		</option>
+		<option>
+			<description>Het gaat 15 tot 50 schapen.</description>
+			<then>
+				<fact name="Aantal">vijftig</fact>
+			</then>
+		</option>
+		<option>
+			<description>Het gaat om meer dan 50 schapen.</description>
+			<then>
+				<fact name="Aantal">meerdanvijftig</fact>
+			</then>
+		</option>
+	</question>
+
+	<question>
+		<description>Gaat het om een acuut of chronisch probleem?</description>
+		<option>
+			<description>Acuut, het probleem is plotseling opgetreden en wordt snel erger.</description>
+			<then>
+				<fact name="Aardprobleem">acuut</fact>
+			</then>
+		</option>
+		<option>
+			<description>Chronisch, het probleem speelt al langere tijd.</description>
+			<then>
+				<fact name="Aardprobleem">chronisch</fact>
+			</then>
+		</option>
+	</question>
+
+	<question>
+		<description>Is het schaap drachtig?</description>
+		<option>
+			<description>Ja.</description>
+			<then>
+				<fact name="Drachtig">ja</fact>
+			</then>
+		</option>
+		<option>
+			<description>Nee.</description>
+			<then>
+				<fact name="Drachtig">nee</fact>
+			</then>
+		</option>
+		<option>
+			<description>Dat weet ik niet.</description>
+			<then>
+				<fact name="Drachtig">onbekend</fact>
+			</then>
+		</option>
+	</question>
+
+	<question>
+		<description>Heeft het schaap een veranderde temperatuur?</description>
+		<option>
+			<description>Ja, het schaap heeft een verhoogde temperatuur.</description>
+			<then>
+				<fact name="Temperatuur">hoog</fact>
+			</then>
+		</option>
+		<option>
+			<description>Ja, het schaap heeft een verlaagde temperatuur.</description>
+			<then>
+				<fact name="Temperatuur">laag</fact>
+			</then>
+		</option>
+		<option>
+			<description>Nee, de temperatuur is normaal.</description>
+			<then>
+				<fact name="Temperatuur">normaal</fact>
+			</then>
+		</option>
+	</question>
+
+	<question>
+		<description>Welk jaargetijde is het?</description>
+		<option>
+			<description>Lente.</description>
+			<then>
+				<fact name="Jaargetijde">lente</fact>
+			</then>
+		</option>
+		<option>
+			<description>Zomer.</description>
+			<then>
+				<fact name="Jaargetijde">zomer</fact>
+			</then>
+		</option>
+		<option>
+			<description>Herfst.</description>
+			<then>
+				<fact name="Jaargetijde">herfst</fact>
+			</then>
+		</option>
+		<option>
+			<description>Winter.</description>
+			<then>
+				<fact name="Jaargetijde">winter</fact>
+			</then>
+		</option>
+	</question>
+
+	<!-- Einde Vragen Situatieschets -->
+	<!-- Vragen Huid/Slijmvliezen -->
+
+	<question>
+		<description>Wat is er te zien op de huid?</description>
+		<option>
+			<description>Er zijn knobbels in de huid.</description>
+			<then>
+				<fact name="HuidSymptoom">knobbels</fact>
+			</then>
+		</option>
+		<option>
+			<description>Er lijkt een ontsteking te zijn.</description>
+			<then>
+				<fact name="HuidSymptoom">ontsteking</fact>
+			</then>
+		</option>
+		<option>
+			<description>Geen van bovenstaande</description>
+			<then>
+				<fact name="HuidSymptoom">onbekend</fact>
+			</then>
+		</option>
+	</question>
+
+	<question>
+		<description>Wat voor knobbels zijn aanwezich op de huid?</description>
+		<option>
+			<description>De knobbels in de huid zijn hard.</description>
+			<then>
+				<fact name="KnobbelType">hard</fact>
+			</then>
+		</option>
+		<option>
+			<description>De knobbels in de huid zijn zacht en gevuld met pus.</description>
+			<then>
+				<fact name="KnobbelType">zacht</fact>
+			</then>
+		</option>
+		<option>
+			<description>Geen van bovenstaande</description>
+			<then>
+				<fact name="KnobbelType">onbekend</fact>
+			</then>
+		</option>
+	</question>
+
+	<question>
+		<description>Om wat voor ontsteking gaat het?</description>
+		<option>
+			<description>Het is een ontsteking veroorzaakt door een wond</description>
+			<then>
+				<fact name="InfectieType">wond</fact>
+			</then>
+		</option>
+		<option>
+			<description>Het is een oppervlakkige onsteking van de huid.</description>
+			<then>
+				<fact name="InfectieType">oppervlakkig</fact>
+			</then>
+		</option>
+		<option>
+			<description>Het is een gezwollen, bloederige ontsteking.</description>
+			<then>
+				<fact name="InfectieType">gezwollen</fact>
+			</then>
+		</option>
+		<option>
+			<description>Geen van bovenstaande</description>
+			<then>
+				<fact name="InfectieType">onbekend</fact>
+			</then>
+		</option>
+	</question>
+
+	<question>
+		<description>Is de wond diep en/of veroorzaakt door een hond?</description>
+		<option>
+			<description>Ja</description>
+			<then>
+				<fact name="WondType">diep</fact>
+			</then>
+		</option>
+		<option>
+			<description>Nee</description>
+			<then>
+				<fact name="WondType">oppervlakkig</fact>
+			</then>
+		</option>
+	</question>
+
+	<!-- Einde Vragen Huid/Slijmvliezen -->
+	<!-- Vragen Neus/Longen -->
+
+	<question>
+		<description>Van hoeveel van de volgende symptomen heeft het schaap last? 
+		-Hoesten 
+		-Bij opjagen hijgen/ademjacht 
+		-Koorts/lusteloosheid 
+		-Niet eten 
+		-Neusuitvloeiing/natte ogen
+		-Sterfte</description>
+		<option>
+			<description>0</description>
+			<then>
+				<fact name="SympLongontsteking">nul</fact>
+			</then>
+		</option>
+		<option>
+			<description>1</description>
+			<then>
+				<fact name="SympLongontsteking">een</fact>
+			</then>
+		</option>
+		<option>
+			<description>2</description>
+			<then>
+				<fact name="SympLongontsteking">twee</fact>
+			</then>
+		</option>
+		<option>
+			<description>3</description>
+			<then>
+				<fact name="SympLongontsteking">drie</fact>
+			</then>
+		</option>
+		<option>
+			<description>4</description>
+			<then>
+				<fact name="SympLongontsteking">vier</fact>
+			</then>
+		</option>
+		<option>
+			<description>5</description>
+			<then>
+				<fact name="SympLongontsteking">vijf</fact>
+			</then>
+		</option>
+		<option>
+			<description>6</description>
+			<then>
+				<fact name="SympLongontsteking">zes</fact>
+			</then>
+		</option>
+	</question>
+
+
+	<question>
+		<description>Van hoeveel van de volgende symptomen heeft het schaap last? 
+		-Hersenverschijnselen/Fietsbewegingen 
+		-Apathie 
+		-Niet opstaan 
+		-Snotteren
+		-Acuute sterfte</description>
+		<option>
+			<description>0</description>
+			<then>
+				<fact name="SympZomerlongontsteking">nul</fact>
+			</then>
+		</option>
+		<option>
+			<description>1</description>
+			<then>
+				<fact name="SympZomerlongontsteking">een</fact>
+			</then>
+		</option>
+		<option>
+			<description>2</description>
+			<then>
+				<fact name="SympZomerlongontsteking">twee</fact>
+			</then>
+		</option>
+		<option>
+			<description>3</description>
+			<then>
+				<fact name="SympZomerlongontsteking">drie</fact>
+			</then>
+		</option>
+		<option>
+			<description>4</description>
+			<then>
+				<fact name="SympZomerlongontsteking">vier</fact>
+			</then>
+		</option>
+		<option>
+			<description>5</description>
+			<then>
+				<fact name="SympZomerlongontsteking">vijf</fact>
+			</then>
+		</option>
+	</question>
+
+	<question>
+		<description>Van hoeveel van de volgende symptomen heeft het schaap last? 
+		-Benauwdheid 
+		-Het maken van veel ademgeluiden 
+		-De tong uit de bek laten hangen 
+		-Sterfte</description>
+		<option>
+			<description>0</description>
+			<then>
+				<fact name="SympVerscheuringMiddenrif">nul</fact>
+			</then>
+		</option>
+		<option>
+			<description>1</description>
+			<then>
+				<fact name="SympVerscheuringMiddenrif">een</fact>
+			</then>
+		</option>
+		<option>
+			<description>2</description>
+			<then>
+				<fact name="SympVerscheuringMiddenrif">twee</fact>
+			</then>
+		</option>
+		<option>
+			<description>3</description>
+			<then>
+				<fact name="SympVerscheuringMiddenrif">drie</fact>
+			</then>
+		</option>
+		<option>
+			<description>4</description>
+			<then>
+				<fact name="SympVerscheuringMiddenrif">vier</fact>
+			</then>
+		</option>
+	</question>	
+
+	<question>
+		<description>Van hoeveel van de volgende symptomen heeft het schaap last? 
+		-Sterk vermageren 
+		-Achterblijven bij koppel 
+		-Neusuitvloeiing/Hoesten
+		-Sterfte</description>
+		<option>
+			<description>0</description>
+			<then>
+				<fact name="SympZwoegerziekte">nul</fact>
+			</then>
+		</option>
+		<option>
+			<description>1</description>
+			<then>
+				<fact name="SympZwoegerziekte">een</fact>
+			</then>
+		</option>
+		<option>
+			<description>2</description>
+			<then>
+				<fact name="SympZwoegerziekte">twee</fact>
+			</then>
+		</option>
+		<option>
+			<description>3</description>
+			<then>
+				<fact name="SympZwoegerziekte">drie</fact>
+			</then>
+		</option>
+		<option>
+			<description>4</description>
+			<then>
+				<fact name="SympZwoegerziekte">vier</fact>
+			</then>
+		</option>
+	</question>	
+
+	<!-- Einde Vragen Neus/Longen -->
+	<!-- Vragen Gedrag, Houding en Gang  -->
+
+
 <question>
-	<description>Is het beweidingsplan van de schapen recentelijk veranderd?</description>
-	<option>
-		<description>Ja, de schapen zijn van binnen naar buiten gegaan.</description>
-		<then>
-			<fact name="Voeding">veranderd</fact>
-			<fact name="Locatie">buiten</fact>
-		</then>
-	</option>
-	<option>
-		<description>Ja, de schapen zijn van buiten naar binnen gegaan.</description>
-		<then>
-			<fact name="Voeding">veranderd</fact>
-			<fact name="Locatie">binnen</fact>
-		</then>
-	</option>
-	<option>
-		<description>Ja, de schapen staan op een nieuw weiland.</description>
-		<then>
-			<fact name="Voeding">veranderd</fact>
-			<fact name="Locatie">buiten</fact>
-		</then>
-	</option>
-	<option>
-		<description>Nee, de schapen staan nog steeds binnen.</description>
-		<then>
-			<fact name="Voeding">gelijk</fact>
-			<fact name="Locatie">binnen</fact>
-		</then>
-	</option>
-	<option>
-		<description>Nee, de schapen staan nog steeds buiten.</description>
-		<then>
-			<fact name="Voeding">gelijk</fact>
-			<fact name="Locatie">buiten</fact>
-		</then>
-	</option>
+    <description>Hoeveel van de volgende symptomen heeft het schaap? 
+    - Liggend met stijve achterpoten. 
+    - Het derde ooglid is zichtbaar
+    - Het schaap heeft last van een kaakklem. 
+    - De kop van het schaap staat naar achteren. 
+    - Het schaap heeft soms last van krampaanvallen. 
+    - Het schaap is doodgegaan 4 tot 7 dagen na het begin van de symptomen.</description>
+    <option>
+        <description>0</description>
+        <then>
+            <fact name="SympTetanus">nul</fact>
+        </then>
+    </option>
+    <option>
+        <description>1</description>
+        <then>
+            <fact name="SympTetanus">een</fact>
+        </then>
+    </option>
+    <option>
+        <description>2</description>
+        <then>
+            <fact name="SympTetanus">twee</fact>
+        </then>
+    </option>
+    <option>
+        <description>3</description>
+        <then>
+            <fact name="SympTetanus">drie</fact>
+        </then>
+    </option>
+    <option>
+        <description>4</description>
+        <then>
+            <fact name="SympTetanus">vier</fact>
+        </then>
+    </option>
+    <option>
+        <description>5</description>
+        <then>
+            <fact name="SympTetanus">vijf</fact>
+        </then>
+    </option>
+    <option>
+        <description>6</description>
+        <then>
+            <fact name="SympTetanus">zes</fact>
+        </then>
+    </option>
+    <option>
+        <description>7</description>
+        <then>
+            <fact name="SympTetanus">zeven</fact>
+        </then>
+    </option>
 </question>
 
 <question>
-	<description>Is de voedingssoort veranderd?</description>
-	<option>
-		<description>Ja, de schapen krijgen bix, eerst kregen ze een andere soort bix.</description>
-		<then>
-			<fact name="Voedingssoort">bix</fact>
-			<fact name="Voeding">gelijk</fact>
-			<!--Een verschil in soort bix wordt niet als verandering in voeding gezien-->
-		</then>
-	</option>
-	<option>
-		<description>Ja, de schapen krijgen hooi, eerst kregen ze bix.</description>
-		<then>
-			<fact name="Voedingssoort">hooi</fact>
-			<fact name="Voeding">veranderd</fact>
-		</then>
-	</option>
-	<option>
-		<description>Ja, de schapen krijgen bix, eerst kregen ze hooi.</description>
-		<then>
-			<fact name="Voedingssoort">bix</fact>
-			<fact name="Voeding">veranderd</fact>
-		</then>
-	</option>
-	<option>
-		<description>Nee, ze krijgen nog steeds bix.</description>
-		<then>
-			<fact name="Voedingssoort">bix</fact>
-			<fact name="Voeding">gelijk</fact>
-		</then>
-	</option>
-	<option>
-		<description>Nee, ze krijgen nog steeds hooi.</description>
-		<then>
-			<fact name="Voedingssoort">hooi</fact>
-			<fact name="Voeding">gelijk</fact>
-		</then>
-	</option>
+    <description>Hoeveel van de volgende symptomen heeft het schaap? -Het schaap cirkelt naar één kant. 
+    - Het schaap heeft last van een éénzijdig afhangend oor, ooglid of lip.
+    - Het schaap heeft last van speekselen, niet kunnen slikken. 
+    - Het schaap eet of drinkt niet. 
+    - Het schaap blijft achter bij de koppel. (kudde, zouden dus ook naar conditie kunnen kijken) 
+    - Het schaap staat stil zonder te bewegen met de kop naar beneden of naar één kant gedraaid.
+    - Het schaap valt zonder weer op te staan.
+    - Het schaap maakt trappende bewegingen met de voorpoten.
+    - Het schaap ademt zwaar.
+    - Het schaap is overleden. </description>
+    <option>
+        <description>0</description>
+        <then>
+            <fact name="SympListeria">nul</fact>
+        </then>
+    </option>
+    <option>
+        <description>1</description>
+        <then>
+            <fact name="SympListeria">een</fact>
+        </then>
+    </option>
+    <option>
+        <description>2</description>
+        <then>
+            <fact name="SympListeria">twee</fact>
+        </then>
+    </option>
+    <option>
+        <description>3</description>
+        <then>
+            <fact name="SympListeria">drie</fact>
+        </then>
+    </option>
+    <option>
+        <description>4</description>
+        <then>
+            <fact name="SympListeria">vier</fact>
+        </then>
+    </option>
+    <option>
+        <description>5</description>
+        <then>
+            <fact name="SympListeria">vijf</fact>
+        </then>
+    </option>
+    <option>
+        <description>6</description>
+        <then>
+            <fact name="SympListeria">zes</fact>
+        </then>
+    </option>
+    <option>
+        <description>7</description>
+        <then>
+            <fact name="SympListeria">zeven</fact>
+        </then>
+    </option>
+     <option>
+        <description>8</description>
+        <then>
+            <fact name="SympListeria">acht</fact>
+        </then>
+    </option>
+    <option>
+        <description>9</description>
+        <then>
+            <fact name="SympListeria">negen</fact>
+        </then>
+    </option>
 </question>
 
-<question>
-	<description>Hoe oud zijn de schapen?</description>
-	<option>
-		<description>Het zijn lammeren.</description>
-		<then>
-			<fact name="Leeftijd">lam</fact>
-		</then>
-	</option>
-	<option>
-		<description>Het zijn jaarlingen.</description>
-		<then>
-			<fact name="Leeftijd">jaarling</fact>
-		</then>
-	</option>
-	<option>
-		<description>Het zijn volwassen schapen.</description>
-		<then>
-			<fact name="Leeftijd">volwassen</fact>
-		</then>
-	</option>
-</question>
 
 <question>
-	<description>Welk orgaansysteem is aangetast?</description>
-	<option>
-		<description>Het gaat om het maag- of darmstelsel.</description>
-		<then>
-			<fact name="Orgaan">maagdarm</fact>
-		</then>
-	</option>
-	<option>
-		<description>Het schaap is kreupel.</description>
-		<then>
-			<fact name="Orgaan">kreupelheid</fact>
-		</then>
-	</option>	
-	<option>
-		<description>Het gaat om de ogen.</description>
-		<then>
-			<fact name="Orgaan">ogen</fact>
-		</then>
-	</option>	
-	<option>
-		<description>Het gaat om de huid en/of slijmvliezen.</description>
-		<then>
-			<fact name="Orgaan">huidslijmvliezen</fact>
-		</then>
-	</option>	
-	<option>
-		<description>Het gaat om de neus en/of longen.</description>
-		<then>
-			<fact name="Orgaan">neuslongen</fact>
-		</then>
-	</option>
-	<option>
-		<description>Het gaat om het gedrag, de houding of de gang.</description>
-		<then>
-			<fact name="Orgaan">gedraghoudinggang</fact>
-		</then>
-	</option>
-	<option>
-		<description>Het schaap komt niet meer overeind.</description>
-		<then>
-			<fact name="Orgaan">overeind</fact>
-		</then>
-	</option>
-	<option>
-		<description>Het gaat om de wol.</description>
-		<then>
-			<fact name="Orgaan">wol</fact>
-		</then>
-	</option>	
-	<option>
-		<description>Weet ik niet.</description>
-		<then>
-			<fact name="Orgaan">onbekend</fact>
-		</then>
-	</option>	
+    <description>Hoeveel van de volgende symptomen heeft het schaap? -Het schaap cirkelt naar één kant. 
+    - Het schaap heeft last van jeuk en is aan het krabben.
+    - Het schaap trilt.
+    - Het schaap is onrustig en schrikachtig.
+    - Het schaap is kaal en heeft wonden. 
+    - De wol van het schaap is droog en mat.
+    - Het schaap heeft een glazige blik in zijn ogen, meer dan normaal.
+    - Het schaap strekt zijn nek en maakt bijtende en likkende bewegingen terwijl hij krabt.
+    - Het schaap is mager geworden.
+    - Het schaap zondert zich af van de groep. 
+     </description>
+    <option>
+        <description>0</description>
+        <then>
+            <fact name="SympScrapie">nul</fact>
+        </then>
+    </option>
+    <option>
+        <description>1</description>
+        <then>
+            <fact name="SympScrapie">een</fact>
+        </then>
+    </option>
+    <option>
+        <description>2</description>
+        <then>
+            <fact name="SympScrapie">twee</fact>
+        </then>
+    </option>
+    <option>
+        <description>3</description>
+        <then>
+            <fact name="SympScrapie">drie</fact>
+        </then>
+    </option>
+    <option>
+        <description>4</description>
+        <then>
+            <fact name="SympScrapie">vier</fact>
+        </then>
+    </option>
+    <option>
+        <description>5</description>
+        <then>
+            <fact name="SympScrapie">vijf</fact>
+        </then>
+    </option>
+    <option>
+        <description>6</description>
+        <then>
+            <fact name="SympScrapie">zes</fact>
+        </then>
+    </option>
+    <option>
+        <description>7</description>
+        <then>
+            <fact name="SympScrapie">zeven</fact>
+        </then>
+    </option>
+     <option>
+        <description>8</description>
+        <then>
+            <fact name="SympScrapie">acht</fact>
+        </then>
+    </option>
+    <option>
+        <description>9</description>
+        <then>
+            <fact name="SympScrapie">negen</fact>
+        </then>
+    </option>
 </question>
 
-<question>
-	<description>Hoe is de conditie van het schaap op een schaal van 1 tot 5 waar 1 heel slecht is en 5 heel goed?</description>
-	<option>
-		<description>1</description>
-		<then>
-			<fact name="Conditie">een</fact>
-		</then>
-	</option>
-	<option>
-		<description>2</description>
-		<then>
-			<fact name="Conditie">twee</fact>
-		</then>
-	</option>
-	<option>
-		<description>3</description>
-		<then>
-			<fact name="Conditie">drie</fact>
-		</then>
-	</option>
-	<option>
-		<description>4</description>
-		<then>
-			<fact name="Conditie">vier</fact>
-		</then>
-	</option>
-	<option>
-		<description>5</description>
-		<then>
-			<fact name="Conditie">vijf</fact>
-		</then>
-	</option>
-</question>
+<!-- Einde Vragen Gedrag, Houding en Gang -->
+<!-- Vragen ....  -->
 
-<question>
-	<description>Hoeveel schapen ervaren deze problemen?</description>
-	<option>
-		<description>Het gaat om minder dan 5 schapen.</description>
-		<then>
-			<fact name="Aantal">vijf</fact>
-		</then>
-	</option>
-	<option>
-		<description>Het gaat om 5 tot 15 schapen.</description>
-		<then>
-			<fact name="Aantal">vijftien</fact>
-		</then>
-	</option>
-	<option>
-		<description>Het gaat 15 tot 50 schapen.</description>
-		<then>
-			<fact name="Aantal">vijftig</fact>
-		</then>
-	</option>
-	<option>
-		<description>Het gaat om meer dan 50 schapen.</description>
-		<then>
-			<fact name="Aantal">meerdanvijftig</fact>
-		</then>
-	</option>
-</question>
-
-<question>
-	<description>Gaat het om een acuut of chronisch probleem?</description>
-	<option>
-		<description>Acuut, het probleem is plotseling opgetreden en wordt snel erger.</description>
-		<then>
-			<fact name="Aardprobleem">acuut</fact>
-		</then>
-	</option>
-	<option>
-		<description>Chronisch, het probleem speelt al langere tijd.</description>
-		<then>
-			<fact name="Aardprobleem">chronisch</fact>
-		</then>
-	</option>
-</question>
-
-<question>
-	<description>Is het schaap drachtig?</description>
-	<option>
-		<description>Ja.</description>
-		<then>
-			<fact name="Drachtig">ja</fact>
-		</then>
-	</option>
-	<option>
-		<description>Nee.</description>
-		<then>
-			<fact name="Drachtig">nee</fact>
-		</then>
-	</option>
-	<option>
-		<description>Dat weet ik niet.</description>
-		<then>
-			<fact name="Drachtig">onbekend</fact>
-		</then>
-	</option>
-</question>
-
-<question>
-	<description>Heeft het schaap een veranderde temperatuur?</description>
-	<option>
-		<description>Ja, het schaap heeft een verhoogde temperatuur.</description>
-		<then>
-			<fact name="Temperatuur">hoog</fact>
-		</then>
-	</option>
-	<option>
-		<description>Ja, het schaap heeft een verlaagde temperatuur.</description>
-		<then>
-			<fact name="Temperatuur">laag</fact>
-		</then>
-	</option>
-	<option>
-		<description>Nee, de temperatuur is normaal.</description>
-		<then>
-			<fact name="Temperatuur">normaal</fact>
-		</then>
-	</option>
-</question>
-
-<question>
-	<description>Welk jaargetijde is het?</description>
-	<option>
-		<description>Lente.</description>
-		<then>
-			<fact name="Jaargetijde">lente</fact>
-		</then>
-	</option>
-	<option>
-		<description>Zomer.</description>
-		<then>
-			<fact name="Jaargetijde">zomer</fact>
-		</then>
-	</option>
-	<option>
-		<description>Herfst.</description>
-		<then>
-			<fact name="Jaargetijde">herfst</fact>
-		</then>
-	</option>
-	<option>
-		<description>Winter.</description>
-		<then>
-			<fact name="Jaargetijde">winter</fact>
-		</then>
-	</option>
-</question>
-
-<question>
-	<description>Wat is er te zien op de huid?</description>
-	<option>
-		<description>Er zijn knobbels in de huid.</description>
-		<then>
-			<fact name="HuidSymptoom">knobbels</fact>
-		</then>
-	</option>
-	<option>
-		<description>Er lijkt een ontsteking te zijn.</description>
-		<then>
-			<fact name="HuidSymptoom">ontsteking</fact>
-		</then>
-	</option>
-	<option>
-		<description>Geen van bovenstaande</description>
-		<then>
-			<fact name="HuidSymptoom">onbekend</fact>
-		</then>
-	</option>
-</question>
-
-<question>
-	<description>Wat voor knobbels zijn het?</description>
-	<option>
-		<description>De knobbels in de huid zijn hard.</description>
-		<then>
-			<fact name="KnobbelType">hard</fact>
-		</then>
-	</option>
-	<option>
-		<description>De knobbels in de huid zijn zacht en gevuld met pus.</description>
-		<then>
-			<fact name="KnobbelType">zacht</fact>
-		</then>
-	</option>
-	<option>
-		<description>Geen van bovenstaande</description>
-		<then>
-			<fact name="KnobbelType">onbekend</fact>
-		</then>
-	</option>
-</question>
-
-<question>
-	<description>Om wat voor ontsteking gaat het?</description>
-	<option>
-		<description>Het is een ontsteking veroorzaakt door een wond</description>
-		<then>
-			<fact name="InfectieType">wond</fact>
-		</then>
-	</option>
-	<option>
-		<description>Het is een oppervlakkige onsteking van de huid.</description>
-		<then>
-			<fact name="InfectieType">oppervlakkig</fact>
-		</then>
-	</option>
-	<option>
-		<description>Het is een gezwollen, bloederige ontsteking.</description>
-		<then>
-			<fact name="InfectieType">gezwollen</fact>
-		</then>
-	</option>
-	<option>
-		<description>Geen van bovenstaande</description>
-		<then>
-			<fact name="InfectieType">onbekend</fact>
-		</then>
-	</option>
-</question>
-
-<question>
-	<description>Is de wond diep en/of veroorzaakt door een hond?</description>
-	<option>
-		<description>Ja</description>
-		<then>
-			<fact name="WondType">diep</fact>
-		</then>
-	</option>
-	<option>
-		<description>Nee</description>
-		<then>
-			<fact name="WondType">oppervlakkig</fact>
-		</then>
-	</option>
-</question>
 
 </knowledge>
