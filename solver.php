@@ -60,6 +60,8 @@ class Question
 {
 	public $inferred_facts;
 
+	public $multiple;
+
 	public $description;
 
 	public $options = array();

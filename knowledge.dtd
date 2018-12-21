@@ -2,13 +2,14 @@
 <!ELEMENT knowledge (title?, description?, (fact|rule|question|goal)*) >
 
 <!ELEMENT rule (description?, if, then) >
-<!ELEMENT question (description, option+) >
+<!ELEMENT question (multiple, description, option+) >
 
 <!ELEMENT goal (description, answer+) >
 <!ATTLIST goal name CDATA #REQUIRED >
 
 <!ELEMENT title (#PCDATA) >
 <!ELEMENT description (#PCDATA) >
+<!ELEMENT multiple (#PCDATA) >
 
 <!ELEMENT fact (#PCDATA) >
 <!ATTLIST fact name CDATA #REQUIRED>

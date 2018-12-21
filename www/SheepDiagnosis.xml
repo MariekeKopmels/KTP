@@ -23,13 +23,14 @@
 		<answer value="Hooiprobleem">Het lijkt erop dat er iets mis is met het hooi.</answer>
 		<answer value="Bixprobleem">Het lijkt erop dat er iets mis is met de bix.</answer>
 		<answer value="Onbekend">Sorry, we kunnen je niet helpen. Bel de dierenarts voor advies.</answer>
+		<answer value="Blauwtong">De symptomen wijzen op Blauwtong. DIT IS EEN AANGIFTEPLICHTIGE AANDOENING. </answer>
+		<answer value="BlauwtongMisschien">Deze symtomen lijken op blauwtong te wijzen. Het aantal symptomen is echter nog te weinig om dit met zekerheid vast te kunnen stellen. Houdt het schaap in de gaten en contacteer bij meer symptomen de dierentarts.</answer>
 		<answer value="CasousLymfadenitis">Het lijkt erop dat dit Casous Lymfadenitis is. DIT IS EEN AANGIFTEPLICHTIGE AANDOENING. Open de abcessen niet vanwegen het risico op overdracht (zoonose).</answer>
 		<answer value="Abcessen">Dit lijken abcessen van de huid te zijn. Deze kunnen veroorzaakt woorden door doornen (sleedoorn bijvoorbeeld).</answer>
 		<answer value="StrawberryFootrot">Dit lijkt Strawberry Footrot te zijn, een gemengde infectie van ecthyma met de bacterie Dermatophylus congolensis. Dieren hebben bij deze aandoening een slechte kans op herstellen. Draag altijd handschoenen bij de behandeling.</answer>
 		<answer value="WondinfectieOppervlakkig">Dit is een oppervlakkige ontsteking van een opgelopen wond. Behandel met CTC-spray.</answer>
 		<answer value="WondinfectieDiep">Dit is een onsteking van een diepere wond. Behandel met antibiotica en CTC-spray.</answer>
 		<answer	value="Dermatophylose">Dit lijkt op Dermatophylose, een oppervlakkige huidonsteking. Behandel de oppervlakkige wonden met CTC-spray of jodine. Na een paar weken kan er een spontane genezing zijn.</answer>
-		<answer>There does not seem to be an answer to your problem in this database. Contact your veterinarian to discuss this problem further.</answer>
 	
 		<answer value="Tetanus">Het lijkt erop dat de schapen last hebben van Klem (Tetanus). Zien we nogal eens  bij lammeren van een paar dagen oud. Soms bij ooien na scheren, of na aflammeren. Wanneer de schapen nog niet overleden zijn, kun je ze in een rustige donkere omgeving leggen, meestal is sterfte het gevolg. In het vervolg is het belangrijk om de navel goed ontsmetten en wonden ontsmetten met jodium. </answer>
    	    <answer value="TetanusMiss">Het zou kunnnen dat de schapen last hebben van Klem (Tetanus). Het aantal symptomen is echter nog te weinig om dit met zekerheid vast te kunnen stellen. Het goed om de volgende symptomen [symptomen] in de gaten te houden en de dierenarts te contacteren wanneer deze voorkomen.</answer> 
@@ -38,7 +39,7 @@
         <answer value="Scrapie"> Het lijkt erop dat de schapen last hebben van Scrapie. Dit is een aangifteplichtige ziekte, dus bel direct de autoriteiten.</answer>
         <answer value="ScrapieMiss">Het zou kunnen dat de schapen last hebben van Scrapie. Het aantal symptomen is echter nog te weinig om dit met zekerheid vast te kunnen stellen. Het goed om de volgende symptomen [symptomen] in de gaten te houden en de dierenarts te contacteren wanneer deze voorkomen.</answer>
         <answer value="Dierenarts"> Het is onduidelijk, contacteer de dierenarts.</answer>
-
+		<answer>There does not seem to be an answer to your problem in this database. Contact your veterinarian to discuss this problem further.</answer>
 	</goal>
 
 <!-- RULES -->
@@ -111,6 +112,54 @@
 		</if>
 		<then>
 			<fact name="Action">Onbekend</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>Blauwtong</description>
+		<if>
+			<and>
+				<or>
+					<fact name="Orgaan">huidslijmvliezen</fact>
+					<fact name="Orgaan">gedraghoudinggang</fact>
+					<fact name="Orgaan">kreupelheid</fact>
+				</or>
+				<fact name="Conditie">een</fact>
+				<some threshold="4">
+					<fact name="Zweertjes">ja</fact>
+					<fact name="InfectieType">gezwollen</fact>
+					<fact name="DikkeKop">ja</fact>
+					<fact name="Neusuitvloeiing">ja</fact>
+					<fact name="Eetlust">niet</fact>
+				</some>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">Blauwtong</fact>
+		</then>
+	</rule>
+
+	<rule>
+		<description>BlauwtongMisschien</description>
+		<if>
+			<and>
+				<or>
+					<fact name="Orgaan">huidslijmvliezen</fact>
+					<fact name="Orgaan">gedraghoudinggang</fact>
+					<fact name="Orgaan">kreupelheid</fact>
+				</or>
+				<fact name="Conditie">een</fact>
+				<some threshold="2">
+					<fact name="Zweertjes">ja</fact>
+					<fact name="InfectieType">gezwollen</fact>
+					<fact name="DikkeKop">ja</fact>
+					<fact name="Neusuitvloeiing">ja</fact>
+					<fact name="Eetlust">niet</fact>
+				</some>
+			</and>
+		</if>
+		<then>
+			<fact name="Action">BlauwtongMisschien</fact>
 		</then>
 	</rule>
 
@@ -205,11 +254,14 @@
 	<rule>
 		<description>Mogelijk Longontsteking</description>
 		<if>
-			<or>
-				<fact name="SympLongontsteking">twee</fact>
-				<fact name="SympLongontsteking">drie</fact>
-				<fact name="SympLongontsteking">vier</fact>
-			</or>
+			<and> 
+				<fact name="Orgaan">neuslongen</fact>
+				<or>
+					<fact name="SympLongontsteking">twee</fact>
+					<fact name="SympLongontsteking">drie</fact>
+					<fact name="SympLongontsteking">vier</fact>
+				</or>
+			</and>
 		</if>
 		<then>
 			<fact name="Action">LongontstekingMiss</fact>
@@ -219,9 +271,12 @@
 	<rule>
 		<description>Longontsteking</description>
 		<if>
-			<and>
-				<fact name="SympLongontsteking">vijf</fact>
-				<fact name="SympLongontsteking">zes</fact>
+			<and> 
+				<fact name="Orgaan">neuslongen</fact>
+				<or>
+					<fact name="SympLongontsteking">vijf</fact>
+					<fact name="SympLongontsteking">zes</fact>
+				</or>
 			</and>
 		</if>
 		<then>
@@ -232,10 +287,13 @@
 	<rule>
 		<description>Mogelijk Zomerlongontsteking</description>
 		<if>
-			<or>
-				<fact name="SympZomerlongontsteking">twee</fact>
-				<fact name="SympZomerlongontsteking">drie</fact>
-			</or>
+			<and> 
+				<fact name="Orgaan">neuslongen</fact>
+				<or>
+					<fact name="SympZomerlongontsteking">twee</fact>
+					<fact name="SympZomerlongontsteking">drie</fact>
+				</or>
+			</and>
 		</if>
 		<then>
 			<fact name="Action">ZomerlongontstekingMiss</fact>
@@ -245,9 +303,12 @@
 	<rule>
 		<description>Zomerlongontsteking</description>
 		<if>
-			<and>
-				<fact name="SympZomerlongontsteking">vier</fact>
-				<fact name="SympZomerlongontsteking">vijf</fact>
+			<and> 
+				<fact name="Orgaan">neuslongen</fact>
+				<or>
+					<fact name="SympZomerlongontsteking">vier</fact>
+					<fact name="SympZomerlongontsteking">vijf</fact>
+				</or>
 			</and>
 		</if>
 		<then>
@@ -258,10 +319,13 @@
 	<rule>
 		<description>Mogelijk Verscheuring Middenrif</description>
 		<if>
-			<or>
-				<fact name="SympVerscheuringMiddenrif">twee</fact>
-				<fact name="SympVerscheuringMiddenrif">drie</fact>
-			</or>
+			<and> 
+				<fact name="Orgaan">neuslongen</fact>
+				<or>
+					<fact name="SympVerscheuringMiddenrif">twee</fact>
+					<fact name="SympVerscheuringMiddenrif">drie</fact>
+				</or>
+			</and>
 		</if>
 		<then>
 			<fact name="Action">VerscheuringMiddenrifMiss</fact>
@@ -271,7 +335,8 @@
 	<rule>
 		<description>Verscheuring Middenrif</description>
 		<if>
-			<and>
+			<and> 
+				<fact name="Orgaan">neuslongen</fact>
 				<fact name="SympVerscheuringMiddenrif">vier</fact>
 			</and>
 		</if>
@@ -283,10 +348,13 @@
 	<rule>
 		<description>Mogelijk Zwoegerziekte</description>
 		<if>
-			<or>
-				<fact name="SympZwoegerziekte">twee</fact>
-				<fact name="SympZwoegerziekte">drie</fact>
-			</or>
+			<and> 
+				<fact name="Orgaan">neuslongen</fact>
+				<or>
+					<fact name="SympZwoegerziekte">twee</fact>
+					<fact name="SympZwoegerziekte">drie</fact>
+				</or>
+			</and>
 		</if>
 		<then>
 			<fact name="Action">ZwoegerziekteMiss</fact>
@@ -296,7 +364,8 @@
 	<rule>
 		<description>Zwoegerziekte</description>
 		<if>
-			<and>
+			<and> 
+				<fact name="Orgaan">neuslongen</fact>
 				<fact name="SympZwoegerziekte">vier</fact>
 			</and>
 		</if>
@@ -310,12 +379,15 @@
 <rule>
     <description>Tetanus</description>
         <if>
-            <or>
-             <fact name="SympTetanus">vier</fact>
-             <fact name="SympTetanus">vijf</fact>
-             <fact name="SympTetanus">zes</fact>
-             <fact name="SympTetanus">zeven</fact>
-            </or>
+			<and>
+				<fact name="Orgaan">gedraghoudinggang</fact>
+				<or>
+				<fact name="SympTetanus">vier</fact>
+				<fact name="SympTetanus">vijf</fact>
+				<fact name="SympTetanus">zes</fact>
+				<fact name="SympTetanus">zeven</fact>
+				</or>
+			</and>
         </if>
         <then>
             <fact name="Action">Tetanus</fact>
@@ -325,10 +397,13 @@
 <rule>
     <description>Mogelijk Tetanus, maar weinig symptomen</description>
         <if>
-            <or>
-             <fact name="SympTetanus">twee</fact>
-             <fact name="SympTetanus">drie</fact>
-            </or>
+			<and>
+				<fact name="Orgaan">gedraghoudinggang</fact>
+				<or>
+				<fact name="SympTetanus">twee</fact>
+				<fact name="SympTetanus">drie</fact>
+				</or>
+			</and>
         </if>
         <then>
             <fact name="Action">TetanusMiss</fact>
@@ -341,14 +416,17 @@
 <rule>
     <description>Listeria</description>
         <if>
-            <or>
-             <fact name="SympListeria">vier</fact>
-             <fact name="SympListeria">vijf</fact>
-             <fact name="SympListeria">zes</fact>
-             <fact name="SympListeria">zeven</fact>
-             <fact name="SympListeria">acht</fact>
-             <fact name="SympListeria">negen</fact>
-            </or>
+			<and>
+				<fact name="Orgaan">gedraghoudinggang</fact>
+				<or>
+				<fact name="SympListeria">vier</fact>
+				<fact name="SympListeria">vijf</fact>
+				<fact name="SympListeria">zes</fact>
+				<fact name="SympListeria">zeven</fact>
+				<fact name="SympListeria">acht</fact>
+				<fact name="SympListeria">negen</fact>
+				</or>
+			</and>
         </if>
         <then>
             <fact name="Action">Listeria</fact>
@@ -358,10 +436,13 @@
 <rule>
     <description>Mogelijk Listeria, maar weinig symptomen</description>
         <if>
-            <or>
-             <fact name="SympListeria">drie</fact>
-             <fact name="SympListeria">twee</fact>
-            </or>
+			<and>
+				<fact name="Orgaan">gedraghoudinggang</fact>
+				<or>
+				<fact name="SympListeria">drie</fact>
+				<fact name="SympListeria">twee</fact>
+				</or>
+			</and>
         </if>
         <then>
             <fact name="Action">ListeriaMiss</fact>
@@ -374,14 +455,17 @@
 <rule>
     <description>Scrapie</description>
         <if>
-            <or>
-             <fact name="SympScrapie">vier</fact>
-             <fact name="SympScrapie">vijf</fact>
-             <fact name="SympScrapie">zes</fact>
-             <fact name="SympScrapie">zeven</fact>
-             <fact name="SympScrapie">acht</fact>
-             <fact name="SympScrapie">negen</fact>
-            </or>
+			<and>
+				<fact name="Orgaan">gedraghoudinggang</fact>
+				<or>
+				<fact name="SympScrapie">vier</fact>
+				<fact name="SympScrapie">vijf</fact>
+				<fact name="SympScrapie">zes</fact>
+				<fact name="SympScrapie">zeven</fact>
+				<fact name="SympScrapie">acht</fact>
+				<fact name="SympScrapie">negen</fact>
+				</or>
+			</and>
         </if>
         <then>
             <fact name="Action">Scrapie</fact>
@@ -391,10 +475,13 @@
 <rule>
     <description>Mogelijk Scrapie, maar weinig symptomen</description>
         <if>
-            <or>
-             <fact name="SympScrapie">drie</fact>
-             <fact name="SympScrapie">twee</fact>
-            </or>
+			<and>
+				<fact name="Orgaan">gedraghoudinggang</fact>
+				<or>
+				<fact name="SympScrapie">drie</fact>
+				<fact name="SympScrapie">twee</fact>
+				</or>
+			</and>
         </if>
         <then>
             <fact name="Action">ScrapieMiss</fact>
@@ -726,6 +813,47 @@
 
 	<!-- Einde Vragen Situatieschets -->
 	<!-- Vragen Huid/Slijmvliezen -->
+
+	<question>
+		<multiple>yes</multiple>
+		<description>Heeft het schaap last van een van de volgende symptomen?</description>
+		<option>
+			<description>Witte zweertjes op het tandvlies, lip/wangslijmvlies of de tong</description>
+			<then>
+				<fact name="Zweertjes">ja</fact>
+			</then>
+		</option>
+		<option>
+			<description>Rode, open zweetjes op het tandvlies, lip/wangslijmvlies of de tong</description>
+			<then>
+				<fact name="Zweertjes">ja</fact>
+			</then>
+		</option>
+		<option>
+			<description>Een gezwollen ontsteking op de kroonrand</description>
+			<then>
+				<fact name="InfectieType">gezwollen</fact>
+			</then>
+		</option>
+		<option>
+			<description>Een zwetende, dikke kop</description>
+			<then>
+				<fact name="DikkeKop">ja</fact>
+			</then>
+		</option>
+		<option>
+			<description>Eet niet</description>
+			<then>
+				<fact name="Eetlust">niet</fact>
+			</then>
+		</option>
+		<option>
+			<description>Neusuitvloeiing</description>
+			<then>
+				<fact name="Neusuitvloeiing">ja</fact>
+			</then>
+		</option>
+	</question>
 
 	<question>
 		<description>Wat is er te zien op de huid?</description>

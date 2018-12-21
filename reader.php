@@ -118,6 +118,11 @@ class KnowledgeBaseReader
 					$kb->questions->push($question);
 					break;
 				
+				case 'questionMultiple':
+					$question = $this->parseQuestionMultiple($childNode);
+					$kb->questions->push($question);
+					break;
+
 				case 'goal':
 					$goal = $this->parseGoal($childNode);
 					$kb->goals->push($goal);
@@ -203,6 +208,64 @@ class KnowledgeBaseReader
 	}
 
 	private function parseQuestion($node)
+	{
+		$question = new Question;
+
+		$question->line_number = $node->getLineNo();
+
+		if ($node->hasAttribute('priority'))
+			$question->priority = intval($node->getAttribute('priority'));
+
+		foreach ($this->childElements($node) as $childNode)
+		{
+			switch ($childNode->nodeName)
+			{
+				case 'multiple':
+					$question->multiple = TRUE;
+					break;
+
+				case 'description':
+					$question->description = $this->parseText($childNode);
+					break;
+				
+				case 'option':
+					$question->options[] = $this->parseOption($childNode);
+					break;
+				
+				default:
+					$this->logError("KnowledgeBaseReader::parseQuestion: "
+						. "Skipping unknown element '{$childNode->nodeName}'",
+						E_USER_NOTICE);
+					continue;
+			}
+		}
+
+		if ($question->description === null)
+			$this->logError("KnowledgeBaseReader::parseQuestion: "
+				. "'question' node on line " . $node->getLineNo()
+				. " is missing a 'description' element",
+				E_USER_WARNING);
+
+		if (count($question->options) === 0)
+			$this->logError("KnowledgeBaseReader::parseQuestion: "
+				. "'question' node on line " . $node->getLineNo()
+				. " has no possible answers (no 'option' elements)",
+				E_USER_WARNING);
+
+		if (count($question->options) === 1)
+			$this->logError("KnowledgeBaseReader::parseQuestion: "
+				. "'question' node on line " . $node->getLineNo()
+				. " has only one possible answer",
+				E_USER_NOTICE);
+
+		foreach ($question->options as $option)
+			foreach (array_keys($option->consequences) as $inferred_fact)
+				$question->inferred_facts->push($inferred_fact);
+		
+		return $question;
+	}
+
+	private function parseQuestionMultiple($node)
 	{
 		$question = new Question;
 
@@ -589,23 +652,23 @@ if (!class_exists('Error')) {
 }
 
 
-function test_reader()
-{
-	include_once 'solver.php';
+// function test_reader()
+// {
+// 	include_once 'solver.php';
 
-	$reader = new KnowledgeBaseReader();
+// 	$reader = new KnowledgeBaseReader();
 
-	$kb = $reader->parse('SheepDiagnosis.xml');
+// 	$kb = $reader->parse('SheepDiagnosis.xml');
 
-	// foreach ($kb->goals as $goal)
-	// {
-	// 	$result = $kb->infer($goal->proof);
+// 	// foreach ($kb->goals as $goal)
+// 	// {
+// 	// 	$result = $kb->infer($goal->proof);
 
-	// 	printf("%s: %s\n",
-	// 		$goal->description,
-	// 		$reader->stringifyTruthValue($result));
-	// }
-}
+// 	// 	printf("%s: %s\n",
+// 	// 		$goal->description,
+// 	// 		$reader->stringifyTruthValue($result));
+// 	// }
+// }
 
-test_reader();
+// test_reader();
 

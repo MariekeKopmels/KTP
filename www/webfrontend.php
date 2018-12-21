@@ -65,8 +65,18 @@ class WebFrontend
 
 			$state = $this->getState($domain);
 
+			if (isset($_POST['answers']))
+			{ 
+				$array = $_POST['answers']; 
+				foreach($array as $value)
+					$state->apply(_decode($value));
+			}
+
 			if (isset($_POST['answer']))
+			{
+				//$this->logError('Wrong answer');
 				$state->apply(_decode($_POST['answer']));
+			}
 
 			switch ($domain->algorithm)
 			{
@@ -84,7 +94,8 @@ class WebFrontend
 
 			if ($step instanceof AskedQuestion)
 			{
-				$page = new Template('templates/question.phtml');
+
+				$page = $step->question->multiple? new Template('templates/questionMultiple.phtml') : new Template('templates/question.phtml');
 				$page->question = $step->question;
 				$page->skippable = $step->skippable;
 			}
