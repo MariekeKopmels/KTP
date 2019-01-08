@@ -22,5 +22,17 @@
 		</li>
 		<?php endif ?>
 	</ol>
+
+	<div class="imagesRow">
+		<?php foreach ($question->images as $image): ?>
+		<div class="imagesCol">
+			 <figure>
+  				<img src="<?=$state->substitute_variables($image->file, ['Template', 'html'])?>" alt="Sheep" style="width:100%">
+  				<figcaption><?=$state->substitute_variables($image->caption, ['Template', 'html'])?></figcaption>
+			</figure> 
+		</div>
+		<?php endforeach ?>
+	</div>
+
 </section>
 <?php $this->end() ?>

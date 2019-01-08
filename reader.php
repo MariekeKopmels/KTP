@@ -231,6 +231,10 @@ class KnowledgeBaseReader
 				case 'option':
 					$question->options[] = $this->parseOption($childNode);
 					break;
+
+				case 'image':
+					$question->images[] = $this->parseImage($childNode);
+					break;
 				
 				default:
 					$this->logError("KnowledgeBaseReader::parseQuestion: "
@@ -284,6 +288,10 @@ class KnowledgeBaseReader
 				
 				case 'option':
 					$question->options[] = $this->parseOption($childNode);
+					break;
+
+				case 'image':
+					$question->images[] = $this->parseImage($childNode);
 					break;
 				
 				default:
@@ -549,6 +557,45 @@ class KnowledgeBaseReader
 				E_USER_WARNING);
 
 		return $option;
+	}
+
+	private function parseImage($node)
+	{
+		$image = new Image;
+
+		foreach ($this->childElements($node) as $childNode) 
+		{
+			switch ($childNode->nodeName)
+			{
+				case 'caption':
+					$image->caption = $this->parseText($childNode);
+					break;
+
+				case 'file':
+					$image->file = $this->parseText($childNode);
+					break;
+
+				default:
+					$this->logError("KnowledgeBaseReader::parseOption: "
+						. "Skipping unknown element '{$childNode->nodeName}'",
+						E_USER_NOTICE);
+					continue;
+			}
+		}
+
+		if ($image->caption == '')
+			$this->logError("KnowledgeBaseReader::parseImage: "
+				. "'image' node on line " . $node->getLineNo()
+				. " has no caption (missing or empty 'caption' node)",
+				E_USER_WARNING);
+
+		if ($image->file == '')
+			$this->logError("KnowledgeBaseReader::parseImage: "
+				. "'image' node on line " . $node->getLineNo()
+				. " has no filename (missing or empty 'file' node)",
+				E_USER_WARNING);
+
+		return $image;
 	}
 
 	private function parseAnswer($node)

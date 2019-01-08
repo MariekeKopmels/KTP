@@ -115,6 +115,7 @@
 		</then>
 	</rule>
 
+<!-- Slijmvliezen -->
 	<rule>
 		<description>Blauwtong</description>
 		<if>
@@ -162,6 +163,8 @@
 			<fact name="Action">BlauwtongMisschien</fact>
 		</then>
 	</rule>
+
+<!-- Huid -->
 
 	<rule>
 		<description>CL</description>
@@ -249,245 +252,483 @@
 		</then>
 	</rule>
 
-	<!-- Rules neus/longen -->
-
-	<rule>
-		<description>Mogelijk Longontsteking</description>
-		<if>
-			<and> 
-				<fact name="Orgaan">neuslongen</fact>
-				<or>
-					<fact name="SympLongontsteking">twee</fact>
-					<fact name="SympLongontsteking">drie</fact>
-					<fact name="SympLongontsteking">vier</fact>
-				</or>
-			</and>
-		</if>
-		<then>
-			<fact name="Action">LongontstekingMiss</fact>
-		</then>
-	</rule>
-
 	<rule>
 		<description>Longontsteking</description>
-		<if>
-			<and> 
-				<fact name="Orgaan">neuslongen</fact>
-				<or>
-					<fact name="SympLongontsteking">vijf</fact>
-					<fact name="SympLongontsteking">zes</fact>
-				</or>
-			</and>
-		</if>
-		<then>
-			<fact name="Action">Longontsteking</fact>
-		</then>
-	</rule>	
-
+    	<if>
+        	<and>
+            	<fact name="Orgaan">neuslongen</fact>
+            	<fact name="Aardprobleem">chronisch</fact>
+            	<or>
+                	<fact name="Conditie">een</fact>
+                	<fact name="Conditie">twee</fact>
+            	</or>
+            	<some threshold="4">
+                	<fact name="Hoesten">ja</fact>
+                	<fact name="Hijgen">ja</fact>
+                	<fact name="Koorts">ja</fact>
+                	<fact name="Eetlust">niet</fact>
+                	<fact name="Neusuitvloeiing">ja</fact>
+                	<fact name="Sterfte">ja</fact>
+            	</some>
+        	</and>
+    	</if>
+    	<then>
+       		<fact name="Action">Longontsteking</fact>
+    	</then>
+		</rule>
 	<rule>
-		<description>Mogelijk Zomerlongontsteking</description>
-		<if>
-			<and> 
-				<fact name="Orgaan">neuslongen</fact>
-				<or>
-					<fact name="SympZomerlongontsteking">twee</fact>
-					<fact name="SympZomerlongontsteking">drie</fact>
-				</or>
-			</and>
-		</if>
-		<then>
-			<fact name="Action">ZomerlongontstekingMiss</fact>
-		</then>
+		<description>LongontstekingMiss</description>
+	    <if>
+	        <and>
+	            <fact name="Orgaan">neuslongen</fact>
+	            <fact name="Aardprobleem">chronisch</fact>
+	            <or>
+	                <fact name="Conditie">een</fact>
+	                <fact name="Conditie">twee</fact>
+	                <fact name="Conditie">drie</fact>
+	            </or>
+	            <some threshold="3">
+	                <fact name="Hoesten">ja</fact>
+	                <fact name="Hijgen">ja</fact>
+	                <fact name="Koorts">ja</fact>
+	                <fact name="Eetlust">niet</fact>
+	                <fact name="Neusuitvloeiing">ja</fact>
+	                <fact name="Sterfte">ja</fact>
+	            </some>
+	        </and>
+	    </if>
+	    <then>
+	        <fact name="Action">LongontstekingMiss</fact>
+	    </then>
 	</rule>
-
 	<rule>
-		<description>Zomerlongontsteking</description>
-		<if>
-			<and> 
-				<fact name="Orgaan">neuslongen</fact>
-				<or>
-					<fact name="SympZomerlongontsteking">vier</fact>
-					<fact name="SympZomerlongontsteking">vijf</fact>
-				</or>
-			</and>
-		</if>
-		<then>
-			<fact name="Action">Zomerlongontsteking</fact>
-		</then>
-	</rule>	
+	<description>Zomerlongontsteking</description>
+    <!--Of zomerlongontsteking, of acute longontsteking -->
+    <if>
+        <and>
+            <fact name="Orgaan">neuslongen</fact>
+            <or>
+                <fact name="Conditie">een</fact>
+                <fact name="Conditie">twee</fact>
+            </or>
+            <or>
+                <!--Symptomen zomerlongontsteking-->
+                <some threshold="4">
+                    <fact name="Hoesten">ja</fact>
+                    <fact name="Hijgen">ja</fact>
+                    <fact name="Koorts">ja</fact>
+                    <fact name="Eetlust">niet</fact>
+                    <fact name="Neusuitvloeiing">ja</fact>
+                    <fact name="Sterfte">ja</fact>
+                </some>
+                <and>
+                    <fact name="Aardprobleem">acuut</fact>
+                    <!--Symptomen longontsteking-->
+                    <some threshold="4">
+                        <fact name="Hoesten">ja</fact>
+                        <fact name="Hijgen">ja</fact>
+                        <fact name="Koorts">ja</fact>
+                        <fact name="Eetlust">niet</fact>
+                        <fact name="Neusuitvloeiing">ja</fact>
+                        <fact name="Sterfte">ja</fact>
+                    </some>
+                </and>
+            </or>
+        </and>
+    </if>
+    <then>
+        <fact name="Action">Zomerlongontsteking</fact>
+    </then>
+</rule>
+<rule>
+	<description>ZomerlongontstekingMiss</description>
+    <!--Of zomerlongontsteking, of acute longontsteking -->
+    <if>
+        <and>
+            <fact name="Orgaan">neuslongen</fact>
+            <or>
+                <fact name="Conditie">een</fact>
+                <fact name="Conditie">twee</fact>
+                <fact name="Conditie">drie</fact>
+            </or>
+            <or>
+                <!--Symptomen zomerlongontsteking-->
+                <some threshold="3">
+                    <fact name="Hoesten">ja</fact>
+                    <fact name="Hijgen">ja</fact>
+                    <fact name="Koorts">ja</fact>
+                    <fact name="Eetlust">niet</fact>
+                    <fact name="Neusuitvloeiing">ja</fact>
+                    <fact name="Sterfte">ja</fact>
+                </some>
+                <and>
+                    <fact name="Aardprobleem">acuut</fact>
+                    <!--Symptomen longontsteking-->
+                    <some threshold="3">
+                        <fact name="Hoesten">ja</fact>
+                        <fact name="Hijgen">ja</fact>
+                        <fact name="Koorts">ja</fact>
+                        <fact name="Eetlust">niet</fact>
+                        <fact name="Neusuitvloeiing">ja</fact>
+                        <fact name="Sterfte">ja</fact>
+                    </some>
+                </and>
+            </or>
+        </and>
+    </if>
+    <then>
+        <fact name="Action">ZomerlongontstekingMiss</fact>
+    </then>
+</rule>
+<rule>
+	<description>VerscheuringMiddenrif</description>
+    <if>
+        <and>
+            <fact name="Orgaan">neuslongen</fact>
+            <or>
+                <fact name="Conditie">een</fact>
+                <fact name="Conditie">twee</fact>
+            </or>
+            <some threshold="3">
+                <fact name="Benauwd">ja</fact>
+                <fact name="Ademgeluiden">veel</fact>
+                <fact name="TonguitBek">ja</fact>
+                <fact name="Sterfte">ja</fact>
+            </some>
+        </and>
+    </if>
+    <then>
+        <fact name="Action">VerscheuringMiddenrif</fact>
+    </then>
+</rule>
+<rule>
+	<description>VerscheuringMiddenrifMiss</description>
+    <if>
+        <and>
+            <fact name="Orgaan">neuslongen</fact>
+            <or>
+                <fact name="Conditie">een</fact>
+                <fact name="Conditie">twee</fact>
+                <fact name="Conditie">drie</fact>
+            </or>
+            <some threshold="2">
+                <fact name="Benauwd">ja</fact>
+                <fact name="Ademgeluiden">veel</fact>
+                <fact name="TonguitBek">ja</fact>
+                <fact name="Sterfte">ja</fact>
+            </some>
+        </and>
+    </if>
+    <then>
+        <fact name="Action">VerscheuringMiddenrifMiss</fact>
+    </then>
+</rule>
+<rule>
+	<description>Zwoegerziekte</description>
+    <if>
+        <and>
+            <fact name="Orgaan">neuslongen</fact>
+            <or>
+                <fact name="Conditie">een</fact>
+                <fact name="Conditie">twee</fact>
+            </or>
+            <some threshold="3">
+                <fact name="Vermageren">sterk</fact>
+                <fact name="AchterblijvenBijKoppel">ja</fact>
+                <fact name="Neusuitvloeiing">ja</fact>
+                <fact name="Hoesten">ja</fact>
+                <fact name="Sterfte">ja</fact>
+            </some>
+        </and>
+    </if>
+    <then>
+        <fact name="Action">Zwoegerziekte</fact>
+    </then>
+</rule>
+<rule>
+	<description>ZwoegerziekteMiss</description>
+    <if>
+        <and>
+            <fact name="Orgaan">neuslongen</fact>
+            <or>
+                <fact name="Conditie">een</fact>
+                <fact name="Conditie">twee</fact>
+                <fact name="Conditie">drie</fact>
+            </or>
+            <some threshold="2">
+                <fact name="Vermageren">sterk</fact>
+                <fact name="AchterblijvenBijKoppel">ja</fact>
+                <fact name="Neusuitvloeiing">ja</fact>
+                <fact name="Hoesten">ja</fact>
+                <fact name="Sterfte">ja</fact>
+            </some>
+        </and>
+    </if>
+    <then>
+        <fact name="Action">ZwoegerziekteMiss</fact>
+    </then>
+</rule>
 
-	<rule>
-		<description>Mogelijk Verscheuring Middenrif</description>
-		<if>
-			<and> 
-				<fact name="Orgaan">neuslongen</fact>
-				<or>
-					<fact name="SympVerscheuringMiddenrif">twee</fact>
-					<fact name="SympVerscheuringMiddenrif">drie</fact>
-				</or>
-			</and>
-		</if>
-		<then>
-			<fact name="Action">VerscheuringMiddenrifMiss</fact>
-		</then>
-	</rule>
-
-	<rule>
-		<description>Verscheuring Middenrif</description>
-		<if>
-			<and> 
-				<fact name="Orgaan">neuslongen</fact>
-				<fact name="SympVerscheuringMiddenrif">vier</fact>
-			</and>
-		</if>
-		<then>
-			<fact name="Action">VerscheuringMiddenrif</fact>
-		</then>
-	</rule>
-
-	<rule>
-		<description>Mogelijk Zwoegerziekte</description>
-		<if>
-			<and> 
-				<fact name="Orgaan">neuslongen</fact>
-				<or>
-					<fact name="SympZwoegerziekte">twee</fact>
-					<fact name="SympZwoegerziekte">drie</fact>
-				</or>
-			</and>
-		</if>
-		<then>
-			<fact name="Action">ZwoegerziekteMiss</fact>
-		</then>
-	</rule>
-
-	<rule>
-		<description>Zwoegerziekte</description>
-		<if>
-			<and> 
-				<fact name="Orgaan">neuslongen</fact>
-				<fact name="SympZwoegerziekte">vier</fact>
-			</and>
-		</if>
-		<then>
-			<fact name="Action">Zwoegerziekte</fact>
-		</then>
-	</rule>	
-
-<!--Tetanus-->
+<!-- Oogaandoening -->
+<rule>
+	<description>Oogaandoening</description>
+    <if>
+        <and>
+            <fact name="Orgaan">ogen</fact>
+            <or>
+                <fact name="Conditie">een</fact>
+                <fact name="Conditie">twee</fact>
+                <fact name="Conditie">drie</fact>
+            </or>
+            <some threshold="3">
+                <fact name="Ontsteking">ja</fact>
+                <fact name="Blind">ja</fact>
+                <fact name="Tranenvloed">ja</fact>
+                <fact name="WitOog">ja</fact>
+            </some>
+        </and>
+    </if>
+    <then>
+        <fact name="Action">Oogaandoening</fact>
+    </then>
+</rule>
 
 <rule>
     <description>Tetanus</description>
-        <if>
-			<and>
-				<fact name="Orgaan">gedraghoudinggang</fact>
-				<or>
-				<fact name="SympTetanus">vier</fact>
-				<fact name="SympTetanus">vijf</fact>
-				<fact name="SympTetanus">zes</fact>
-				<fact name="SympTetanus">zeven</fact>
-				</or>
-			</and>
-        </if>
-        <then>
-            <fact name="Action">Tetanus</fact>
-        </then>
+    <if>
+        <and>
+            <fact name="Orgaan">gedraghoudinggan</fact>
+            <some threshold="4">
+                <fact name="StijvePoten">ja</fact>
+                <fact name="DerdeOoglid">ja</fact>
+                <fact name="Kaakklem">ja</fact>
+                <fact name="KopAchteren">ja</fact>
+                <fact name="Krampaanvallen">ja</fact>
+                <fact name="Sterfte47">ja</fact>
+            </some>   
+        </and>
+    </if>
+    <then>
+        <fact name="Action">Tetanus</fact>
+    </then>
 </rule>
 
 <rule>
-    <description>Mogelijk Tetanus, maar weinig symptomen</description>
-        <if>
-			<and>
-				<fact name="Orgaan">gedraghoudinggang</fact>
-				<or>
-				<fact name="SympTetanus">twee</fact>
-				<fact name="SympTetanus">drie</fact>
-				</or>
-			</and>
-        </if>
-        <then>
-            <fact name="Action">TetanusMiss</fact>
-        </then>
-</rule>
-
-
-<!--Listeria-->
-
-<rule>
-    <description>Listeria</description>
-        <if>
-			<and>
-				<fact name="Orgaan">gedraghoudinggang</fact>
-				<or>
-				<fact name="SympListeria">vier</fact>
-				<fact name="SympListeria">vijf</fact>
-				<fact name="SympListeria">zes</fact>
-				<fact name="SympListeria">zeven</fact>
-				<fact name="SympListeria">acht</fact>
-				<fact name="SympListeria">negen</fact>
-				</or>
-			</and>
-        </if>
-        <then>
-            <fact name="Action">Listeria</fact>
-        </then>
+    <description>TetanusMiss</description>
+    <if>
+        <and>
+            <fact name="Orgaan">gedraghoudinggan</fact>
+            <some threshold="3">
+                <fact name="StijvePoten">ja</fact>
+                <fact name="DerdeOoglid">ja</fact>
+                <fact name="Kaakklem">ja</fact>
+                <fact name="KopAchteren">ja</fact>
+                <fact name="Krampaanvallen">ja</fact>
+                <fact name="Sterfte47">ja</fact>
+            </some>   
+        </and>
+    </if>
+    <then>
+        <fact name="Action">TetanusMiss</fact>
+    </then>
 </rule>
 
 <rule>
-    <description>Mogelijk Listeria, maar weinig symptomen</description>
-        <if>
-			<and>
-				<fact name="Orgaan">gedraghoudinggang</fact>
-				<or>
-				<fact name="SympListeria">drie</fact>
-				<fact name="SympListeria">twee</fact>
-				</or>
-			</and>
-        </if>
-        <then>
-            <fact name="Action">ListeriaMiss</fact>
-        </then>
+    <description>Lysteria</description>
+    <if>
+        <and>
+            <fact name="Orgaan">gedraghoudinggan</fact>
+            <some threshold="8">
+                <fact name="Cirkel">ja</fact>
+                <fact name="Afhangend">ja</fact>
+                <fact name="Speekselen">ja</fact>
+                <fact name="NietEtenDrinken">ja</fact>
+                <fact name="AchterblijvenKoppel">ja</fact>
+                <fact name="StilstaanKopGedraaid">ja</fact>
+                <fact name="Vallen">ja</fact>
+                <fact name="Trappen">ja</fact>
+                <fact name="ZwaarAdemen">ja</fact>
+                <fact name="Sterfte">ja</fact>
+            </some>   
+        </and>
+    </if>
+    <then>
+        <fact name="Action">Lysteria</fact>
+    </then>
 </rule>
 
-
-<!--Scrapie-->
+<rule>
+    <description>LysteriaMiss</description>
+    <if>
+        <and>
+            <fact name="Orgaan">gedraghoudinggan</fact>
+            <some threshold="7">
+                <fact name="Cirkel">ja</fact>
+                <fact name="Afhangend">ja</fact>
+                <fact name="Speekselen">ja</fact>
+                <fact name="NietEtenDrinken">ja</fact>
+                <fact name="AchterblijvenKoppel">ja</fact>
+                <fact name="StilstaanKopGedraaid">ja</fact>
+                <fact name="Vallen">ja</fact>
+                <fact name="Trappen">ja</fact>
+                <fact name="ZwaarAdemen">ja</fact>
+                <fact name="Sterfte">ja</fact>
+            </some>   
+        </and>
+    </if>
+    <then>
+        <fact name="Action">LysteriaMiss</fact>
+    </then>
+</rule>
 
 <rule>
     <description>Scrapie</description>
-        <if>
-			<and>
-				<fact name="Orgaan">gedraghoudinggang</fact>
-				<or>
-				<fact name="SympScrapie">vier</fact>
-				<fact name="SympScrapie">vijf</fact>
-				<fact name="SympScrapie">zes</fact>
-				<fact name="SympScrapie">zeven</fact>
-				<fact name="SympScrapie">acht</fact>
-				<fact name="SympScrapie">negen</fact>
-				</or>
-			</and>
-        </if>
-        <then>
-            <fact name="Action">Scrapie</fact>
-        </then>
+    <if>
+        <and>
+            <or>
+            <fact name="Orgaan">gedraghoudinggan</fact>
+            <fact name="Orgaan">huidslijmvliezen</fact>
+            <fact name="Orgaan">wol</fact>
+            </or>
+            <some threshold="8">
+                <fact name="Cirkel">ja</fact>
+                <fact name="Jeuk">ja</fact>
+                <fact name="Trillen">ja</fact>
+                <fact name="OnrustigSchrikachtig">ja</fact>
+                <fact name="KaalWonden">ja</fact>
+                <fact name="WolDroogMat">ja</fact>
+                <fact name="GlazigeBlik">ja</fact>
+                <fact name="StrekkenNek">ja</fact>
+                <fact name="Mager">ja</fact>
+                <fact name="Afzonderen">ja</fact>
+            </some>   
+        </and>
+    </if>
+    <then>
+        <fact name="Action">Scrapie</fact>
+    </then>
 </rule>
 
 <rule>
-    <description>Mogelijk Scrapie, maar weinig symptomen</description>
-        <if>
-			<and>
-				<fact name="Orgaan">gedraghoudinggang</fact>
-				<or>
-				<fact name="SympScrapie">drie</fact>
-				<fact name="SympScrapie">twee</fact>
-				</or>
-			</and>
-        </if>
-        <then>
-            <fact name="Action">ScrapieMiss</fact>
-        </then>
+    <description>ScrapieMiss</description>
+    <if>
+        <and>
+            <or>
+            <fact name="Orgaan">gedraghoudinggan</fact>
+            <fact name="Orgaan">huidslijmvliezen</fact>
+            <fact name="Orgaan">wol</fact>
+            </or>
+            <some threshold="7">
+                <fact name="Cirkel">ja</fact>
+                <fact name="Jeuk">ja</fact>
+                <fact name="Trillen">ja</fact>
+                <fact name="OnrustigSchrikachtig">ja</fact>
+                <fact name="KaalWonden">ja</fact>
+                <fact name="WolDroogMat">ja</fact>
+                <fact name="GlazigeBlik">ja</fact>
+                <fact name="StrekkenNek">ja</fact>
+                <fact name="Mager">ja</fact>
+                <fact name="Afzonderen">ja</fact>
+            </some>   
+        </and>
+    </if>
+    <then>
+        <fact name="Action">ScrapieMiss</fact>
+    </then>
 </rule>
 
+<!-- Vergiftigingen-->
+<rule>
+	<description>PaardestaartVergiftiging</description>
+    <if>
+        <and>
+            <or> 
+                <fact name="Orgaan">onbekend</fact>
+                <fact name="Orgaan">maagdarm</fact>
+            </or>
+            <or> 
+                <fact name="Conditie">een</fact>
+                <fact name="Conditie">twee</fact>
+            </or>
+            <or> 
+                <some threshold="2">
+                    <fact name="Blind">ja</fact>
+                    <fact name="SpastischLopen">ja</fact>
+                    <fact name="Sterrekijker">ja</fact>
+                </some>
+                <fact name="Vergiftiging">paardenstaart</fact>
+            </or>
+        </and>
+    </if>
+    <then>
+        <fact name="Action">PaardestaartVergiftiging</fact>
+    </then>
+</rule>
+<rule>
+	<description>TaxusVergiftiging</description>
+    <if>
+        <and>
+            <or> 
+                <fact name="Orgaan">onbekend</fact>
+                <fact name="Orgaan">maagdarm</fact>
+            </or>
+            <or> 
+                <fact name="Conditie">een</fact>
+                <fact name="Conditie">twee</fact>
+            </or>
+            <or> 
+                <some threshold="5">
+                    <fact name="Sterfte">acuut</fact>
+                    <fact name="Tandenknarsen">ja</fact>
+                    <fact name="Benauwd">ja</fact>
+                    <fact name="Braakneigingen">ja</fact>
+                    <fact name="Krampen">ja</fact>
+                    <fact name="Schuimbekken">ja</fact>
+                    <fact name="BlauweSlijmvliezen">ja</fact>
+                    <fact name="Trillen">ja</fact>
+                    <fact name="Omvallen">ja</fact>
+                </some>
+                <fact name="Vergiftiging">taxus</fact>
+            </or>
+        </and>
+    </if>
+    <then>
+        <fact name="Action">TaxusVergiftiging</fact>
+    </then>
+</rule>
+<rule>
+	<description>EikeltjesVergiftiging</description>
+    <if>
+        <and>
+            <or> 
+                <fact name="Orgaan">onbekend</fact>
+                <fact name="Orgaan">maagdarm</fact>
+            </or>
+            <or> 
+                <fact name="Conditie">een</fact>
+                <fact name="Conditie">twee</fact>
+            </or>
+            <or> 
+                <some threshold="5">
+                    <fact name="Sterfte">acuut</fact>
+                    <fact name="Tandenknarsen">ja</fact>
+                    <fact name="Onrustig">ja</fact>
+                    <fact name="Braakneigingen">ja</fact>
+                    <fact name="Darmkrampen">ja</fact>
+                    <fact name="Schuimbekken">ja</fact>
+                    <fact name="BloederigeDiarree">ja</fact>
+                    <fact name="EikelsInMest">ja</fact>
+                    <fact name="GlanzendGroenigeMest">ja</fact>
+                    <fact name="VeelDrinken">ja</fact>
+                </some>
+                <fact name="Vergiftiging">eikels</fact>
+            </or>
+        </and>
+    </if>
+    <then>
+        <fact name="Action">EikeltjesVergiftiging</fact>
+    </then>
+</rule>
 
 
 	<!--Basic knowledge we need-->
@@ -659,10 +900,18 @@
 				<fact name="Orgaan">onbekend</fact>
 			</then>
 		</option>	
+		<image>
+			<caption>Shaun</caption>
+			<file>../images/shaun.jpg</file>
+		</image>
+		<image>
+			<caption>Shaun</caption>
+			<file>../images/shaun.jpg</file>
+		</image>
 	</question>
 
 	<question>
-		<description>Hoe is de conditie van het schaap op een schaal van 1 tot 5 waar 1 heel slecht is en 5 heel goed?</description>
+		<description>Hoe is de conditie score van het schaap op een schaal van 1 tot 5 waar 1 heel mager is en 5 heel vet?</description>
 		<option>
 			<description>1</description>
 			<then>
@@ -944,394 +1193,532 @@
 	</question>
 
 	<!-- Einde Vragen Huid/Slijmvliezen -->
-	<!-- Vragen Neus/Longen -->
-
-	<question>
-		<description>Van hoeveel van de volgende symptomen heeft het schaap last? 
-		-Hoesten 
-		-Bij opjagen hijgen/ademjacht 
-		-Koorts/lusteloosheid 
-		-Niet eten 
-		-Neusuitvloeiing/natte ogen
-		-Sterfte</description>
-		<option>
-			<description>0</description>
-			<then>
-				<fact name="SympLongontsteking">nul</fact>
-			</then>
-		</option>
-		<option>
-			<description>1</description>
-			<then>
-				<fact name="SympLongontsteking">een</fact>
-			</then>
-		</option>
-		<option>
-			<description>2</description>
-			<then>
-				<fact name="SympLongontsteking">twee</fact>
-			</then>
-		</option>
-		<option>
-			<description>3</description>
-			<then>
-				<fact name="SympLongontsteking">drie</fact>
-			</then>
-		</option>
-		<option>
-			<description>4</description>
-			<then>
-				<fact name="SympLongontsteking">vier</fact>
-			</then>
-		</option>
-		<option>
-			<description>5</description>
-			<then>
-				<fact name="SympLongontsteking">vijf</fact>
-			</then>
-		</option>
-		<option>
-			<description>6</description>
-			<then>
-				<fact name="SympLongontsteking">zes</fact>
-			</then>
-		</option>
-	</question>
-
-
-	<question>
-		<description>Van hoeveel van de volgende symptomen heeft het schaap last? 
-		-Hersenverschijnselen/Fietsbewegingen 
-		-Apathie 
-		-Niet opstaan 
-		-Snotteren
-		-Acuute sterfte</description>
-		<option>
-			<description>0</description>
-			<then>
-				<fact name="SympZomerlongontsteking">nul</fact>
-			</then>
-		</option>
-		<option>
-			<description>1</description>
-			<then>
-				<fact name="SympZomerlongontsteking">een</fact>
-			</then>
-		</option>
-		<option>
-			<description>2</description>
-			<then>
-				<fact name="SympZomerlongontsteking">twee</fact>
-			</then>
-		</option>
-		<option>
-			<description>3</description>
-			<then>
-				<fact name="SympZomerlongontsteking">drie</fact>
-			</then>
-		</option>
-		<option>
-			<description>4</description>
-			<then>
-				<fact name="SympZomerlongontsteking">vier</fact>
-			</then>
-		</option>
-		<option>
-			<description>5</description>
-			<then>
-				<fact name="SympZomerlongontsteking">vijf</fact>
-			</then>
-		</option>
-	</question>
-
-	<question>
-		<description>Van hoeveel van de volgende symptomen heeft het schaap last? 
-		-Benauwdheid 
-		-Het maken van veel ademgeluiden 
-		-De tong uit de bek laten hangen 
-		-Sterfte</description>
-		<option>
-			<description>0</description>
-			<then>
-				<fact name="SympVerscheuringMiddenrif">nul</fact>
-			</then>
-		</option>
-		<option>
-			<description>1</description>
-			<then>
-				<fact name="SympVerscheuringMiddenrif">een</fact>
-			</then>
-		</option>
-		<option>
-			<description>2</description>
-			<then>
-				<fact name="SympVerscheuringMiddenrif">twee</fact>
-			</then>
-		</option>
-		<option>
-			<description>3</description>
-			<then>
-				<fact name="SympVerscheuringMiddenrif">drie</fact>
-			</then>
-		</option>
-		<option>
-			<description>4</description>
-			<then>
-				<fact name="SympVerscheuringMiddenrif">vier</fact>
-			</then>
-		</option>
-	</question>	
-
-	<question>
-		<description>Van hoeveel van de volgende symptomen heeft het schaap last? 
-		-Sterk vermageren 
-		-Achterblijven bij koppel 
-		-Neusuitvloeiing/Hoesten
-		-Sterfte</description>
-		<option>
-			<description>0</description>
-			<then>
-				<fact name="SympZwoegerziekte">nul</fact>
-			</then>
-		</option>
-		<option>
-			<description>1</description>
-			<then>
-				<fact name="SympZwoegerziekte">een</fact>
-			</then>
-		</option>
-		<option>
-			<description>2</description>
-			<then>
-				<fact name="SympZwoegerziekte">twee</fact>
-			</then>
-		</option>
-		<option>
-			<description>3</description>
-			<then>
-				<fact name="SympZwoegerziekte">drie</fact>
-			</then>
-		</option>
-		<option>
-			<description>4</description>
-			<then>
-				<fact name="SympZwoegerziekte">vier</fact>
-			</then>
-		</option>
-	</question>	
-
-	<!-- Einde Vragen Neus/Longen -->
-	<!-- Vragen Gedrag, Houding en Gang  -->
-
-
+	<!--Longontsteking-->
 <question>
-    <description>Hoeveel van de volgende symptomen heeft het schaap? 
-    - Liggend met stijve achterpoten. 
-    - Het derde ooglid is zichtbaar
-    - Het schaap heeft last van een kaakklem. 
-    - De kop van het schaap staat naar achteren. 
-    - Het schaap heeft soms last van krampaanvallen. 
-    - Het schaap is doodgegaan 4 tot 7 dagen na het begin van de symptomen.</description>
+    <multiple>yes</multiple>
+    <description>Heeft het schaap last van een van de volgende symptomen?</description>
     <option>
-        <description>0</description>
+        <description>Hoesten</description>
         <then>
-            <fact name="SympTetanus">nul</fact>
+            <fact name="Hoesten">ja</fact>
         </then>
     </option>
     <option>
-        <description>1</description>
+        <description>Bij opjagen hijgen of ademjacht</description>
         <then>
-            <fact name="SympTetanus">een</fact>
+            <fact name="Hijgen">ja</fact>
         </then>
     </option>
     <option>
-        <description>2</description>
+        <description>Koorts of lusteloosheid</description>
         <then>
-            <fact name="SympTetanus">twee</fact>
+            <fact name="Koorts">ja</fact>
         </then>
     </option>
     <option>
-        <description>3</description>
+        <description>Eet niet</description>
         <then>
-            <fact name="SympTetanus">drie</fact>
+            <fact name="Eetlust">niet</fact>
         </then>
     </option>
     <option>
-        <description>4</description>
+        <description>Neusuitvloeiing of natte ogen</description>
         <then>
-            <fact name="SympTetanus">vier</fact>
+            <fact name="Neusuitvloeiing">ja</fact>
         </then>
     </option>
     <option>
-        <description>5</description>
+        <description>Stefte</description>
         <then>
-            <fact name="SympTetanus">vijf</fact>
+            <fact name="Sterfte">ja</fact>
+        </then>
+    </option>
+</question>
+<!--Zomerlongontsteking-->
+<question>
+    <multiple>yes</multiple>
+    <description>Heeft het schaap last van een van de volgende symptomen?</description>
+    <option>
+        <description>Hersenverschijnselen en fietsbewegingen</description>
+        <then>
+            <fact name="Hersenverschijnselen">ja</fact>
         </then>
     </option>
     <option>
-        <description>6</description>
+        <description>Apathie</description>
         <then>
-            <fact name="SympTetanus">zes</fact>
+            <fact name="Apathie">ja</fact>
         </then>
     </option>
     <option>
-        <description>7</description>
+        <description>Niet opstaan</description>
         <then>
-            <fact name="SympTetanus">zeven</fact>
+            <fact name="Opstaan">niet</fact>
+        </then>
+    </option>
+    <option>
+        <description>Snotteren</description>
+        <then>
+            <fact name="Snotteren">ja</fact>
+        </then>
+    </option>
+</question>
+<!--Verscheuring Middenrif-->
+<question>
+    <multiple>yes</multiple>
+    <description>Heeft het schaap last van een van de volgende symptomen?</description>
+    <option>
+        <description>Benauwdheid</description>
+        <then>
+            <fact name="Benauwd">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Het maken van veel ademgeluiden</description>
+        <then>
+            <fact name="Ademgeluiden">veel</fact>
+        </then>
+    </option>
+    <option>
+        <description>De tong uit de bek laten hangen</description>
+        <then>
+            <fact name="TongUitBek">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Sterfte</description>
+        <then>
+            <fact name="Sterfte">ja</fact>
+        </then>
+    </option>
+</question>
+<!--Zwoegerziekte-->
+<question>
+    <multiple>yes</multiple>
+    <description>Heeft het schaap last van een van de volgende symptomen?</description>
+    <option>
+        <description>Sterk vermageren</description>
+        <then>
+            <fact name="Vermageren">sterk</fact>
+        </then>
+    </option>
+    <option>
+        <description>Achterblijven bij koppel</description>
+        <then>
+            <fact name="AchterblijvenBijKoppel">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Neusuitvloeiing</description>
+        <then>
+            <fact name="Neusuitvloeiing">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Hoesten</description>
+        <then>
+            <fact name="Hoesten">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Sterfte</description>
+        <then>
+            <fact name="Sterfte">ja</fact>
         </then>
     </option>
 </question>
 
+<!-- Vraag oogaandoeningen-->
 <question>
-    <description>Hoeveel van de volgende symptomen heeft het schaap? -Het schaap cirkelt naar één kant. 
-    - Het schaap heeft last van een éénzijdig afhangend oor, ooglid of lip.
-    - Het schaap heeft last van speekselen, niet kunnen slikken. 
-    - Het schaap eet of drinkt niet. 
-    - Het schaap blijft achter bij de koppel. (kudde, zouden dus ook naar conditie kunnen kijken) 
-    - Het schaap staat stil zonder te bewegen met de kop naar beneden of naar één kant gedraaid.
-    - Het schaap valt zonder weer op te staan.
-    - Het schaap maakt trappende bewegingen met de voorpoten.
-    - Het schaap ademt zwaar.
-    - Het schaap is overleden. </description>
+    <multiple>yes</multiple>
+    <description>Heeft het schaap last van een van de volgende symptomen?</description>
     <option>
-        <description>0</description>
+        <description>Ontsteking aan één of beide ogen</description>
         <then>
-            <fact name="SympListeria">nul</fact>
+            <fact name="Ontsteking">ja</fact>
         </then>
     </option>
     <option>
-        <description>1</description>
+        <description>Ooien zijn in meer of mindere mate blind</description>
         <then>
-            <fact name="SympListeria">een</fact>
+            <fact name="Blind">ja</fact>
         </then>
     </option>
     <option>
-        <description>2</description>
+        <description>Tranenvloed, later pusachtig</description>
         <then>
-            <fact name="SympListeria">twee</fact>
+            <fact name="Tranenvloed">ja</fact>
         </then>
     </option>
     <option>
-        <description>3</description>
+        <description>Het ook is wit geworden</description>
         <then>
-            <fact name="SympListeria">drie</fact>
+            <fact name="WitOog">ja</fact>
+        </then>
+    </option>
+</question>
+	
+
+<!-- Vragen Gedrag, Houding en Gang  -->
+<!-- Tetanus -->
+<question>
+    <multiple>yes</multiple>
+    <description>Van welke van de volgende symptomen heeft het schaap last van?</description>
+    <option>
+        <description>Hij heeft last van stijve achterpoten.</description>
+        <then>
+            <fact name="StijvePoten">ja</fact>
         </then>
     </option>
     <option>
-        <description>4</description>
+        <description>Het derde ooglid is zichtbaar.</description>
         <then>
-            <fact name="SympListeria">vier</fact>
+            <fact name="DerdeOoglid">ja</fact>
         </then>
     </option>
     <option>
-        <description>5</description>
+        <description>Kaakklem.</description>
         <then>
-            <fact name="SympListeria">vijf</fact>
+            <fact name="Kaakklem">ja</fact>
         </then>
     </option>
     <option>
-        <description>6</description>
+        <description>De kop van het schaap staat naar achteren.</description>
         <then>
-            <fact name="SympListeria">zes</fact>
+            <fact name="KopAchteren">ja</fact>
         </then>
     </option>
     <option>
-        <description>7</description>
+        <description>Af en toe krampaanvallen.</description>
         <then>
-            <fact name="SympListeria">zeven</fact>
-        </then>
-    </option>
-     <option>
-        <description>8</description>
-        <then>
-            <fact name="SympListeria">acht</fact>
+            <fact name="Krampaanvallen">ja</fact>
         </then>
     </option>
     <option>
-        <description>9</description>
+        <description>Sterfte binnen 4 tot 7 dagen na het begin van de symptomen</description>
         <then>
-            <fact name="SympListeria">negen</fact>
+            <fact name="Sterfte47">ja</fact>
         </then>
     </option>
 </question>
 
-
+<!-- Lysteria -->
 <question>
-    <description>Hoeveel van de volgende symptomen heeft het schaap? -Het schaap cirkelt naar één kant. 
-    - Het schaap heeft last van jeuk en is aan het krabben.
-    - Het schaap trilt.
-    - Het schaap is onrustig en schrikachtig.
-    - Het schaap is kaal en heeft wonden. 
-    - De wol van het schaap is droog en mat.
-    - Het schaap heeft een glazige blik in zijn ogen, meer dan normaal.
-    - Het schaap strekt zijn nek en maakt bijtende en likkende bewegingen terwijl hij krabt.
-    - Het schaap is mager geworden.
-    - Het schaap zondert zich af van de groep. 
-     </description>
+    <multiple>yes</multiple>
+    <description>Van welke van de volgende symptomen heeft het schaap last van?</description>
     <option>
-        <description>0</description>
+        <description>Het schaap cirkelt naar één kant.</description>
         <then>
-            <fact name="SympScrapie">nul</fact>
+            <fact name="Cirkel">ja</fact>
         </then>
     </option>
     <option>
-        <description>1</description>
+        <description>Éénzijdig afhangend oor, ooglid of lip.</description>
         <then>
-            <fact name="SympScrapie">een</fact>
+            <fact name="Afhangend">ja</fact>
         </then>
     </option>
     <option>
-        <description>2</description>
+        <description>Speekselen, niet kunnen slikken.</description>
         <then>
-            <fact name="SympScrapie">twee</fact>
+            <fact name="Speekselen">ja</fact>
         </then>
     </option>
     <option>
-        <description>3</description>
+        <description>Niet eten of drinken.</description>
         <then>
-            <fact name="SympScrapie">drie</fact>
+            <fact name="NietEtenDrinken">ja</fact>
         </then>
     </option>
     <option>
-        <description>4</description>
+        <description>Achterblijven bij de koppel.</description>
         <then>
-            <fact name="SympScrapie">vier</fact>
+            <fact name="AchterblijvenKoppel">ja</fact>
         </then>
     </option>
     <option>
-        <description>5</description>
+        <description>Stilstaan zonder te bewegen met de kop naar één kant gedraaid.</description>
         <then>
-            <fact name="SympScrapie">vijf</fact>
+            <fact name="StilstaanKopGedraaid">ja</fact>
         </then>
     </option>
     <option>
-        <description>6</description>
+        <description>Vallen zonder weer op te staan.</description>
         <then>
-            <fact name="SympScrapie">zes</fact>
+            <fact name="Vallen">ja</fact>
         </then>
     </option>
     <option>
-        <description>7</description>
+        <description>Trappende bewegingen met de voorpoten.</description>
         <then>
-            <fact name="SympScrapie">zeven</fact>
-        </then>
-    </option>
-     <option>
-        <description>8</description>
-        <then>
-            <fact name="SympScrapie">acht</fact>
+            <fact name="Trappen">ja</fact>
         </then>
     </option>
     <option>
-        <description>9</description>
+        <description>Zwaar ademen.</description>
         <then>
-            <fact name="SympScrapie">negen</fact>
+            <fact name="ZwaarAdemen">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description> Overleden.</description>
+        <then>
+            <fact name="Sterfte">ja</fact>
         </then>
     </option>
 </question>
 
+<!-- Scrapie -->
+
+<question>
+    <multiple>yes</multiple>
+    <description>Van welke van de volgende symptomen heeft het schaap last van?</description>
+    <option>
+        <description>Het schaap cirkelt naar één kant.</description>
+        <then>
+            <fact name="Cirkel">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Last van jeuk en krabt.</description>
+        <then>
+            <fact name="Jeuk">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Trillen.</description>
+        <then>
+            <fact name="Trillen">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Onrustig en schrikachtig</description>
+        <then>
+            <fact name="OnrustigSchrikachtig">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Kaal en wonden.</description>
+        <then>
+            <fact name="KaalWonden">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>De wol is droog en mat</description>
+        <then>
+            <fact name="WolDroogMat">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Meer glazige blik dan normaal.</description>
+        <then>
+            <fact name="GlazigeBlik">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Strekken van de nek en bijtende en likkende bewegingen maken.</description>
+        <then>
+            <fact name="StrekkenNek">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Mager worden.</description>
+        <then>
+            <fact name="Mager">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description> Afzonderen van de groep.</description>
+        <then>
+            <fact name="Afzonderen">ja</fact>
+        </then>
+    </option>
+</question>
 <!-- Einde Vragen Gedrag, Houding en Gang -->
-<!-- Vragen ....  -->
+<!-- Vragen vergiftigingen  -->
+<question>
+    <description>Is het schaap vergiftigd? Zo ja, weet u waardoor het schaap vergiftigt is?</description>
+    <option>
+        <description>Ja, door Paardestaart, heermoes of CCN</description>
+        <then>
+            <fact name="Vergiftiging">paardestaart</fact>
+        </then>
+    </option>
+    <option>
+        <description>Ja, door Taxus</description>
+        <then>
+            <fact name="Vergiftiging">taxus</fact>
+        </then>
+    </option>
+    <option>
+        <description>Ja, door Eikeltjes</description>
+        <then>
+            <fact name="Vergiftiging">eikeltjes</fact>
+        </then>
+    </option>
+    <option>
+        <description>Ja, door iets anders</description>
+        <then>
+            <fact name="Vergiftiging">onbekend</fact>
+        </then>
+    </option>
+    <option>
+        <description>Nee, dat weet ik niet.</description>
+        <then>
+            <fact name="Vergiftiging">onbekend</fact>
+        </then>
+    </option>
+    <option>
+        <description>Nee, het schaap is niet vergiftigd.</description>
+        <then>
+            <fact name="Vergiftiging">onbekend</fact>
+        </then>
+    </option>
+</question>
+<question>
+    <multiple>yes</multiple>
+    <description>Heeft het schaap last van een van de volgende symptomen?</description>
+    <option>
+        <description>Blindheid</description>
+        <then>
+            <fact name="Blind">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Spastisch lopen</description>
+        <then>
+            <fact name="SpastischLopen">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>In een later stadium: sterrekijker/kop naar achteren getrokken</description>
+        <then>
+            <fact name="Sterrekijker">ja</fact>
+        </then>
+    </option>
+</question>
+<question>
+    <multiple>yes</multiple>
+    <description>Heeft het schaap last van een van de volgende symptomen?</description>
+    <option>
+        <description>Acute sterfte van meerdere schapen</description>
+        <then>
+            <fact name="Sterfte">acuut</fact>
+        </then>
+    </option>
+    <option>
+        <description>Tandenknarsen</description>
+        <then>
+            <fact name="Tandenknarsen">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Ernstige benauwdheid</description>
+        <then>
+            <fact name="Benauwd">ernstig</fact>
+        </then>
+    </option>
+    <option>
+        <description>Braakneigingen</description>
+        <then>
+            <fact name="Braakneigingen">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>(Darm)krampen</description>
+        <then>
+            <fact name="Krampen">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Schuimbekken</description>
+        <then>
+            <fact name="Schuimbekken">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Blauwe slijmvliezen en of een blauwe tong</description>
+        <then>
+            <fact name="BlauweSlijmvliezen">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Trillen</description>
+        <then>
+            <fact name="Trillen">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Omvallen</description>
+        <then>
+            <fact name="Omvallen">ja</fact>
+        </then>
+    </option>
+</question>
+<question>
+    <multiple>yes</multiple>
+    <description>Heeft het schaap last van een van de volgende symptomen?</description>
+    <option>
+        <description>Acute sterfte van meerdere schapen</description>
+        <then>
+            <fact name="Sterfte">acuut</fact>
+        </then>
+    </option>
+    <option>
+        <description>Tandenknarsen</description>
+        <then>
+            <fact name="Tandenknarsen">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Onrustigheid</description>
+        <then>
+            <fact name="Onrustig">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Braakneigingen</description>
+        <then>
+            <fact name="Braakneigingen">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Darmkrampen/Koliek</description>
+        <then>
+            <fact name="Darmkrampen">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Voedsel wat geen eikeltjes zijn weigeren</description>
+        <then>
+            <fact name="VoedselWeigeren">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Bloederige diarree</description>
+        <then>
+            <fact name="BloederigeDiarree">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Stukken eikels in de mest</description>
+        <then>
+            <fact name="EikelsInMest">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Glanzende groenige mest</description>
+        <then>
+            <fact name="GlanzendGroenigeMest">ja</fact>
+        </then>
+    </option>
+    <option>
+        <description>Veel drinken en veel urineren</description>
+        <then>
+            <fact name="VeelDrinken">ja</fact>
+        </then>
+    </option>
+</question>
 
 
 </knowledge>

@@ -66,6 +66,8 @@ class Question
 
 	public $options = array();
 
+	public $images = array();
+
 	public $priority = 0;
 
 	public $line_number;
@@ -118,6 +120,13 @@ class Option
 	public $description;
 
 	public $consequences = array();
+}
+
+class Image
+{
+	public $caption;
+
+	public $file;
 }
 
 interface Condition

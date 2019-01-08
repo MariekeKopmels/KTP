@@ -194,6 +194,18 @@ table {
 	display: none;
 }
 
+.question .imagesRow::after {
+	content: "";
+  	clear: both;
+  	display: table;
+}
+
+.question .imagesCol {
+	float: left;
+  	width: 33.33%;
+  	padding: 5px;
+}
+
 #debug-info {
 	display: none;
 }

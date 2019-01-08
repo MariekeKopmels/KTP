@@ -2,7 +2,7 @@
 <!ELEMENT knowledge (title?, description?, (fact|rule|question|goal)*) >
 
 <!ELEMENT rule (description?, if, then) >
-<!ELEMENT question (multiple, description, option+) >
+<!ELEMENT question (multiple?, description, option+, image*) >
 
 <!ELEMENT goal (description, answer+) >
 <!ATTLIST goal name CDATA #REQUIRED >
@@ -22,6 +22,11 @@
 <!ELEMENT then (fact+) >
 
 <!ELEMENT option (description, then) >
+
+<!ELEMENT image (caption?, file) >
+
+<!ELEMENT caption (#PCDATA) >
+<!ELEMENT file (#PCDATA) >
 
 <!ELEMENT answer (#PCDATA) >
 <!ATTLIST answer value CDATA #REQUIRED>

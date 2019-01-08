@@ -22,6 +22,26 @@
 				<?=$content?>
 			</form>
 		</div>
+		<div>
+			<?php if(count($state->facts) > 1): ?>
+			<section class="state-info fact-state">
+				<h3>Wat weten we al?</h3>
+				<dl>
+					<?php foreach($state->facts as $name => $value): ?>
+					<?php if(!($name === "undefined")): ?>
+					<dt><?=$name?></dt>
+					<dd>
+						<?=$this->html($value)?>
+						<?php if (KnowledgeState::is_variable($value) && $state->resolve($value) != $value): ?>
+							<small><?=$this->html($state->resolve($value)) ?></small>
+						<?php endif ?>
+					</dd>
+					<?php endif ?>
+					<?php endforeach ?>
+				</dl>
+			</section>
+			<?php endif ?>
+		</div>
 		<aside id="debug-info">
 			<section class="state-info fact-state">
 				<h3>Facts</h3>
