@@ -6,7 +6,7 @@ form {
 
 body {
 	font: 14px/1.6 "Lucida Grande", Lucida, Verdana, sans-serif;
-	margin-top: 36px;
+	margin-top: 36px;	
 }
 
 @media(min-width: 800px) {
@@ -26,15 +26,14 @@ pre {
 	left: 0;
 	width: 100%;
 	height: 24px;
-	background: black;
+	background: rgb(79, 168, 71);
 	box-shadow: 0 0 4px #333;
 	z-index: 10;
 }
 
 .site-nav a {
 	display: inline-block;
-	color: #eee;
-	text-shadow: 0 1px 0 #333;
+	color: black;
 	text-decoration: none;
 	padding: 0 12px;
 }
@@ -57,7 +56,7 @@ header > h1 {
 
 .site-nav a:hover {
 	background: #eee;
-	color: rgb(142, 189, 135);
+	color: rgb(79, 168, 71);
 	text-shadow: 0 1px 0 white;
 }
 
@@ -68,6 +67,12 @@ footer {
 	padding: 0.2em;
 }
 
+footer > div {
+	background-image: url("../images/shaun.jpg");
+	background-repeat: repeat-x;
+	height: 3cm;
+}
+
 footer p {
 	font-size: 0.8em;
 	padding: 0;
@@ -76,6 +81,8 @@ footer p {
 
 footer p, footer p > * {
 	color: rgb(79, 168, 71);
+	text-align: center;
+	background-image: url("../images/shaun.jpg");
 }
 
 table {
@@ -125,6 +132,7 @@ table {
 
 .completed dt {
 	font-size: 1.2em;
+	color: black;
 }
 
 .completed dd {
@@ -134,12 +142,19 @@ table {
 	border-left: 1px solid rgb(153, 226, 146);
 }
 
-.completed .aangifte dt {
+.completed h4 {
+	border-style: solid;
+	background: pink;
+	color: red;
+	text-align: center;
+}
+
+/*.completed .aangifte dt {
 	margin: 0 1em 2em 1em;
 	padding: 0 1em;
 	border-left: 1px solid rgb(79, 168, 71);
 	color: red;
-}
+}*/
 
 .question {
 	max-width: 800px;
@@ -180,6 +195,10 @@ table {
 	display: none;
 }
 
+.question .optionsMultiple {
+	list-style: none;	
+}
+
 .question .optionsMultiple label {
 	display: block;
 	margin: 0.2em;
@@ -188,7 +207,6 @@ table {
 	border: 1px solid #D8D8D8 !important;
 	background: rgb(153, 226, 146);
 	border-radius: 2px;
-	
 }
 
 .question .optionsMultiple .single-click input[type=checkbox] {

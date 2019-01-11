@@ -564,11 +564,6 @@
         <if>
             <and>
                 <fact name="Orgaan">ogen</fact>
-                <or>
-                    <fact name="Conditie">een</fact>
-                    <fact name="Conditie">twee</fact>
-                    <fact name="Conditie">drie</fact>
-                </or>
                 <some threshold="3">
                     <fact name="Ontsteking">ja</fact>
                     <fact name="Blind">ja</fact>
@@ -736,10 +731,6 @@
                     <fact name="Orgaan">maagdarm</fact>
                 </or>
                 <or> 
-                    <fact name="Conditie">een</fact>
-                    <fact name="Conditie">twee</fact>
-                </or>
-                <or> 
                     <some threshold="2">
                         <fact name="Blind">ja</fact>
                         <fact name="SpastischLopen">ja</fact>
@@ -760,10 +751,6 @@
                 <or> 
                     <fact name="Orgaan">onbekend</fact>
                     <fact name="Orgaan">maagdarm</fact>
-                </or>
-                <or> 
-                    <fact name="Conditie">een</fact>
-                    <fact name="Conditie">twee</fact>
                 </or>
                 <or> 
                     <some threshold="5">
@@ -792,10 +779,6 @@
                 <or> 
                     <fact name="Orgaan">onbekend</fact>
                     <fact name="Orgaan">maagdarm</fact>
-                </or>
-                <or> 
-                    <fact name="Conditie">een</fact>
-                    <fact name="Conditie">twee</fact>
                 </or>
                 <or> 
                     <some threshold="5">

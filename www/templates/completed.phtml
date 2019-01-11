@@ -7,8 +7,7 @@
 	<?php foreach ($domain->goals as $goal): ?>
 		<?php if ($goal->hasAnswers() && (($answer = $goal->answer($state)) || $state->facts[$goal->name] != STATE_UNDEFINED)): ?>
 			<?php if ($answer->aangifteplicht): ?>
-				<dt class="aangifte">Aangifteplicht</dt>
-				<dd>Dit is een aangifteplichtige ziekte. Meld dit zo snel mogelijk bij de nVWA.</dd>
+				<h4 class="aangifte"> Let op! Dit is een aangifteplichtige ziekte, meld deze bij de nVWA.</h4>
 			<?php endif ?>
 			<dt><?=$state->substitute_variables($goal->description, ['Template', 'html'])?>Diagnose</dt>
 			<dd><?php
