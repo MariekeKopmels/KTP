@@ -2,16 +2,42 @@
 
 <?php $this->begin('content') ?>
 <section class="completed">
-	<h2>Conclusions</h2>
+	<h2>Conclusie</h2>
 	<dl>
 	<?php foreach ($domain->goals as $goal): ?>
 		<?php if ($goal->hasAnswers() && (($answer = $goal->answer($state)) || $state->facts[$goal->name] != STATE_UNDEFINED)): ?>
-			<dt><?=$state->substitute_variables($goal->description, ['Template', 'html'])?>Diagnosis</dt>
+			<?php if ($answer->aangifteplicht): ?>
+				<dt class="aangifte">Aangifteplicht</dt>
+				<dd>Dit is een aangifteplichtige ziekte. Meld dit zo snel mogelijk bij de nVWA.</dd>
+			<?php endif ?>
+			<dt><?=$state->substitute_variables($goal->description, ['Template', 'html'])?>Diagnose</dt>
 			<dd><?php
 				echo $answer
-					? $state->substitute_variables($answer->description, ['Template', 'html'])
+					? $state->substitute_variables($answer->diagnose, ['Template', 'html'])
 					: '<pre>' . $state->facts[$goal->name] . '</pre>';
 				?></dd>
+			<dt><?=$state->substitute_variables($goal->description, ['Template', 'html'])?>Behandeling</dt>
+			<dd><?php
+				echo $answer
+					? $state->substitute_variables($answer->behandeling, ['Template', 'html'])
+					: '<pre>' . $state->facts[$goal->name] . '</pre>';
+				?></dd>
+			<?php if ($answer->preventief != ''): ?>
+			<dt><?=$state->substitute_variables($goal->description, ['Template', 'html'])?>Preventie</dt>
+			<dd><?php
+				echo $answer
+					? $state->substitute_variables($answer->preventief, ['Template', 'html'])
+					: '<pre>' . $state->facts[$goal->name] . '</pre>';
+				?></dd>
+			<?php endif?>
+			<?php if ($answer->opmerkingen != ''): ?>
+			<dt><?=$state->substitute_variables($goal->description, ['Template', 'html'])?>Opmerkingen</dt>
+			<dd><?php
+				echo $answer
+					? $state->substitute_variables($answer->opmerkingen, ['Template', 'html'])
+					: '<pre>' . $state->facts[$goal->name] . '</pre>';
+				?></dd>
+			<?php endif ?>
 			<?php endif ?>
 	<?php endforeach ?>
 	</dl>

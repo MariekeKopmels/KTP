@@ -120,6 +120,8 @@ class Option
 	public $description;
 
 	public $consequences = array();
+
+	public $ifNotConsequences = array();
 }
 
 class Image
@@ -409,7 +411,15 @@ class Answer
 {
 	public $value;
 
-	public $description;
+	public $aangifteplicht = FALSE;
+
+	public $diagnose;
+
+	public $behandeling;
+
+	public $preventief;
+
+	public $opmerkingen;
 }
 
 

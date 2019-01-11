@@ -57,7 +57,7 @@ header > h1 {
 
 .site-nav a:hover {
 	background: #eee;
-	color: #444;
+	color: rgb(142, 189, 135);
 	text-shadow: 0 1px 0 white;
 }
 
@@ -75,7 +75,7 @@ footer p {
 }
 
 footer p, footer p > * {
-	color: silver;
+	color: rgb(79, 168, 71);
 }
 
 table {
@@ -90,7 +90,7 @@ table {
 .analysis-table th {
 	text-align: left;
 	font-weight: normal;
-	border-bottom: 1px solid silver;
+	border-bottom: 1px solid rgb(79, 168, 71);
 }
 
 .knowledge-bases td,
@@ -98,7 +98,7 @@ table {
 .analysis-table td,
 .analysis-table th {
 	padding: 0 1em;
-	border-left: 1px solid silver;
+	border-left: 1px solid rgb(79, 168, 71);
 }
 
 .analysis-table td strong {
@@ -128,9 +128,17 @@ table {
 }
 
 .completed dd {
+	font-size: 1em;
 	margin: 0 1em 2em 1em;
 	padding: 0 1em;
-	border-left: 1px solid silver;
+	border-left: 1px solid rgb(153, 226, 146);
+}
+
+.completed .aangifte dt {
+	margin: 0 1em 2em 1em;
+	padding: 0 1em;
+	border-left: 1px solid rgb(79, 168, 71);
+	color: red;
 }
 
 .question {
@@ -156,18 +164,12 @@ table {
 	display: block;
 	margin: 0.2em;
 	padding: 0.5em 1em;
-	color: #444;
-	text-shadow: 0 1px 0 white;
-	border: 1px solid #D8D8D8 !important;
-	background: #F2F2F2;
-	background: -webkit-linear-gradient(top, whiteSmoke, #F1F1F1);
-	border-radius: 2px;
+	color: black;
+	background: rgb(153, 226, 146);
 }
 
 .question .options label:hover {
-	border: 1px solid #C6C6C6 !important;
-	background: #F3F3F3;
-	background: -webkit-linear-gradient(top, #F8F8F8, #F1F1F1);
+	background: white;
 }
 
 .question .options label {
@@ -182,12 +184,11 @@ table {
 	display: block;
 	margin: 0.2em;
 	padding: 0.5em 1em;
-	color: #444;
-	text-shadow: 0 1px 0 white;
+	color: black;
 	border: 1px solid #D8D8D8 !important;
-	background: #F2F2F2;
-	background: -webkit-linear-gradient(top, whiteSmoke, #F1F1F1);
+	background: rgb(153, 226, 146);
 	border-radius: 2px;
+	
 }
 
 .question .optionsMultiple .single-click input[type=checkbox] {
@@ -240,7 +241,7 @@ table {
 }
 
 .state-info h3 {
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid rgb(153, 226, 146);
 }
 
 .state-info > select {
@@ -284,7 +285,7 @@ table {
 
 .action a,
 .action button {
-	border: 1px solid silver;
+	border: 1px solid rgb(79, 168, 71);
 	background: #eee;
 	margin: 0.2em;
 	padding: 0.1em 1em;
@@ -387,7 +388,7 @@ body > .page-nav {
 
 .upload-knowledge-base-form button {
 	font-size: 1.5em;
-	border: 1px solid silver;
+	border: 1px solid rgb(79, 168, 71);
 	background: #eee;
 	margin: 0.2em;
 	padding: 0.1em 1em;

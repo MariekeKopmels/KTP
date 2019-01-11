@@ -535,6 +535,10 @@ class KnowledgeBaseReader
 				case 'then':
 					$option->consequences = $this->parseConsequences($childNode);
 					break;
+
+				case 'ifnot':
+					$option->ifNotConsequences = $this->parseConsequences($childNode);
+					break;
 				
 				default:
 					$this->logError("KnowledgeBaseReader::parseOption: "
@@ -606,7 +610,49 @@ class KnowledgeBaseReader
 			? $node->getAttribute('value')
 			: null;
 		
-		$answer->description = $this->parseText($node);
+		foreach ($this->childElements($node) as $childNode) 
+		{
+			switch ($childNode->nodeName)
+			{
+				case 'aangifteplicht':
+					$answer->aangifteplicht = TRUE;
+					break;
+
+				case 'diagnose':
+					$answer->diagnose = $this->parseText($childNode);
+					break;
+
+				case 'behandeling':
+					$answer->behandeling = $this->parseText($childNode);
+					break;
+
+				case 'preventief':
+					$answer->preventief = $this->parseText($childNode);
+					break;
+
+				case 'opmerkingen':
+					$answer->opmerkingen = $this->parseText($childNode);
+					break;
+
+				default:
+					$this->logError("KnowledgeBaseReader::parseOption: "
+						. "Skipping unknown element '{$childNode->nodeName}'",
+						E_USER_NOTICE);
+					continue;
+			}
+		}
+
+		if ($answer->diagnose == '')
+			$this->logError("KnowledgeBaseReader::parseAnswer: "
+				. "'answer' node on line " . $node->getLineNo()
+				. " has no diagnose (missing or empty 'diagnose' node)",
+				E_USER_WARNING);
+
+		if ($answer->behandeling == '')
+			$this->logError("KnowledgeBaseReader::parseAnswer: "
+				. "'behandeling' node on line " . $node->getLineNo()
+				. " has no treatment (missing or empty 'behandeling' node)",
+				E_USER_WARNING);
 
 		return $answer;
 	}

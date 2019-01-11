@@ -21,12 +21,20 @@
 
 <!ELEMENT then (fact+) >
 
-<!ELEMENT option (description, then) >
+<!ELEMENT ifnot (fact+) >
+
+<!ELEMENT option (description, then, ifnot*) >
 
 <!ELEMENT image (caption?, file) >
 
 <!ELEMENT caption (#PCDATA) >
 <!ELEMENT file (#PCDATA) >
 
-<!ELEMENT answer (#PCDATA) >
+<!ELEMENT aangifteplicht >
+<!ELEMENT diagnose (#PCDATA) >
+<!ELEMENT behandeling (#PCDATA) >
+<!ELEMENT preventief (#PCDATA) >
+<!ELEMENT opmerkingen (#PCDATA) >
+
+<!ELEMENT answer (aangifteplicht?, diagnose, behandeling, preventief?, opmerkingen?) >
 <!ATTLIST answer value CDATA #REQUIRED>

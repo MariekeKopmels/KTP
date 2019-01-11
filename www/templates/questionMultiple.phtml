@@ -8,20 +8,12 @@
 		<?php foreach ($question->options as $option): ?>
 		<li>
 			<label>
+				<input type="hidden" name="answers[]" value="<?=_encode($option->ifNotConsequences)?>">
 				<input type="checkbox" name="answers[]" value="<?=_encode($option->consequences)?>">
 				<?=$state->substitute_variables($option->description, ['Template', 'html'])?>
 			</label>
 		</li>
 		<?php endforeach ?>
-		<?php if($skippable): ?>
-		<li class="skip-option">
-			<label>
-				<input type="checkbox" name="answers[]" value="<?=_encode(array())?>">
-				I don't know
-			</label>
-		</li>
-		<?php endif ?>
-
 	</ol>
 
 	<button type="submit">Ga door...</button>

@@ -28,7 +28,7 @@
 				<h3>Wat weten we al?</h3>
 				<dl>
 					<?php foreach($state->facts as $name => $value): ?>
-					<?php if(!($name === "undefined")): ?>
+					<?php if($name != "undefined"&& $value != "nee"): ?>
 					<dt><?=$name?></dt>
 					<dd>
 						<?=$this->html($value)?>
