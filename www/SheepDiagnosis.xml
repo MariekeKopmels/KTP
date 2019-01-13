@@ -955,12 +955,6 @@
 			</then>
 		</option>
 		<option>
-			<description>Het schaap komt niet meer overeind.</description>
-			<then>
-				<fact name="Orgaan">overeind</fact>
-			</then>
-		</option>
-		<option>
 			<description>Het gaat om de wol.</description>
 			<then>
 				<fact name="Orgaan">wol</fact>
