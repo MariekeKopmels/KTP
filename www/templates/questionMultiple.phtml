@@ -2,7 +2,7 @@
 
 <?php $this->begin('content') ?>
 <section class="question">
-	<p><?=$state->substitute_variables($question->description, ['Template', 'html'])?></p>
+	<h3><?=$state->substitute_variables($question->description, ['Template', 'html'])?></h3>
 
 	<ol class="optionsMultiple">
 		<?php foreach ($question->options as $option): ?>
@@ -17,5 +17,16 @@
 	</ol>
 
 	<button class= "button" type="submit">Ga door...</button>
+
+	<div class="imagesRow">
+		<?php foreach ($question->images as $image): ?>
+		<div class="imagesCol">
+			 <figure>
+  				<img src="<?=$state->substitute_variables($image->file, ['Template', 'html'])?>" alt="Sheep" style="width:100%">
+  				<figcaption><?=$state->substitute_variables($image->caption, ['Template', 'html'])?></figcaption>
+			</figure> 
+		</div>
+		<?php endforeach ?>
+	</div>
 </section>
 <?php $this->end() ?>

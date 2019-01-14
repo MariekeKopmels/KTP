@@ -6,15 +6,67 @@
 </goal>
 
 
+<answer value="Tetanus">
+        <diagnose>Het lijkt erop dat de schapen last hebben van Klem (Tetanus). De veroorzaker is Clostridium tetani.</diagnose>
+        <behandeling>Leg het schaap in een rustige donkere omgeving. Meestal is er sprake van sterfte.</behandeling>
+        <preventief>Het is belangrijk de navel goed te ontsmetten en wonden te ontsmetten met jodium<./preventief>
+        <opmerkingen>We zien dit nogal eens bij lammeren van een paar dagen oud. Soms bij ooien na het scheren, of na aflammeren.</opmerkingen>
+</answer>
+
+<answer value="TetanusMiss">
+        <diagnose>Het zou kunnnen dat de schapen last hebben van Klem (Tetanus). Het aantal symptomen is echter nog te weinig om dit met zekerheid vast te kunnen stellen. Het goed om de volgende symptomen in de gaten te houden: Stijve poten, zichtbaarheid van het derde ooglid, kaakklem, kop naar achteren, krampaanvallen en sterfte binnen 4 tot 7 dagen na het begin van de symptomen.</diagnose>
+        <behandeling>Leg het schaap in een rustige donkere omgeving. Meestal is er sprake van sterfte.</behandeling>
+        <preventief>Het is belangrijk de navel goed te ontsmetten en wonden te ontsmetten met jodium<./preventief>
+        <opmerkingen>We zien dit nogal eens bij lammeren van een paar dagen oud. Soms bij ooien na het scheren, of na aflammeren.</opmerkingen>
+</answer> 
+
+<answer value="Listeria">
+        <diagnose>Het lijkt erop dat de schapen last hebben van Listeria, dit wordt veroorzaakt door de Listeria bacterie. Waarschuw de dierenarts.</diagnose>
+        <behandeling>Stoppen met voeren van slechte kuil en waarschuw de dierenarts.</behandeling>
+        <preventief>Alleen goede kuil voeren.</preventief>
+        <opmerkingen>Listeria kan vorkomen door het voeren van beschimmelde kuil of afstervend, enigszins rottend grasland. Ook kan het komen door verwerpen. Vooral jonge ooien komt het voor. ... zoonose?</opmerkingen>
+</answer>
+
+ <answer value="ListeriaMiss">
+        <diagnose>Het zou kunnen dat de schapen last hebben van Listeria. Het aantal symptomen is echter nog te weinig om dit met zekerheid vast te kunnen stellen. Het goed om de volgende symptomen in de gaten te houden en de dierenarts te contacteren wanneer deze voorkomen: Cirkelen naar één kant, éénzijdig afhangend oor/ooglid/lip, speekselen, niet slikken, niet eten of drinken, achterblijven bij de koppel, stilstaan zonder te bewegen met de kop naar beneden of naar één kant gedraaid, vallen zonder weer op te staan, trappende bewegingen met de voorpoten, zwaar ademen, sterfte.
+</diagnose>
+        <behandeling>Stoppen met voeren van slechte kuil en waarschuw de dierenarts.</behandeling>
+        <preventief>Alleen goede kuil voeren.</preventief>
+        <opmerkingen>Listeria kan vorkomen door het voeren van beschimmelde kuil of afstervend, enigszins rottend grasland. Ook kan het komen door verwerpen. Vooral jonge ooien komt het voor. ... zoonose?</opmerkingen>
+ </answer>
+
+ <answer value="Scrapie"> 
+        <aangifteplicht></aangifteplicht>
+        <diagnose>Het lijkt erop dat de schapen last hebben van Scrapie, dit wordt veroorzaakt door TSE.</diagnose>
+        <behandeling>Er is geen behandeling mogelijk.</behandeling>
+        <preventief>Fokken op dubbel ARR.</preventief>
+        <opmerkingen>Dit komt voor bij schapen vanaf 1,5 tot 2 jaar. Het is belangrijk om gesloten bedrijfsvoering te hanteren.</opmerkingen>
+</answer>
+
+<answer value="ScrapieMiss">
+        <aangifteplicht></aangifteplicht>
+        <diagnose>Het zou kunnen dat de schapen last hebben van Scrapie. Het aantal symptomen is echter nog te weinig om dit met zekerheid vast te kunnen stellen. Aangezien dit wel lijkt op de aangifteplichtige ziekte is het van belang de dierenarts te contacteren.</diagnose>
+        <diagnose>Het lijkt erop dat de schapen last hebben van Scrapie, dit wordt veroorzaakt door TSE.</diagnose>
+        <behandeling>Er is geen behandeling mogelijk.</behandeling>
+        <preventief>Fokken op dubbel ARR.</preventief>
+        <opmerkingen>Dit komt voor bij schapen vanaf 1,5 tot 2 jaar. Het is belangrijk om gesloten bedrijfsvoering te hanteren.</opmerkingen>
+</answer>
+
+
+
 <!-- Rules -->
 
 <rule>
     <description>Tetanus</description>
     <if>
         <and>
-            <fact name="Orgaan">gedraghoudinggang</fact>
-            <fact name="Orgaan">ogen</fact>
-            <some threshold="4">
+            <or>
+                <fact name="Orgaan">gedraghoudinggang</fact>
+                <fact name="Orgaan">ogen</fact>
+            </or>
+            <some threshold="5">
+                <fact name="Leeftijd">lam</fact>
+                <fact name="Leeftijd">jaarling</fact>
                 <fact name="StijvePoten">ja</fact>
                 <fact name="DerdeOoglid">ja</fact>
                 <fact name="Kaakklem">ja</fact>
@@ -32,9 +84,17 @@
     <description>TetanusMiss</description>
     <if>
         <and>
-            <fact name="Orgaan">gedraghoudinggang</fact>
-             <fact name="Orgaan">ogen</fact>
-            <some threshold="3">
+            <or>
+                <fact name="Orgaan">gedraghoudinggang</fact>
+                <fact name="Orgaan">ogen</fact>
+            </or>
+            <or>
+                <fact name="Leeftijd">jaarling</fact>
+                <fact name="Leeftijd">lam</fact>
+            </or>
+            <some threshold="4">
+                <fact name="Leeftijd">lam</fact>
+                <fact name="Leeftijd">jaarling</fact>
                 <fact name="StijvePoten">ja</fact>
                 <fact name="DerdeOoglid">ja</fact>
                 <fact name="Kaakklem">ja</fact>
@@ -52,13 +112,15 @@
     <description>Lysteria</description>
     <if>
         <and>
+            <fact name= "Locatie">binnen</fact>       
             <fact name="Orgaan">gedraghoudinggang</fact>
             <some threshold="8">
                 <fact name="Cirkel">ja</fact>
                 <fact name="Afhangend">ja</fact>
                 <fact name="Speekselen">ja</fact>
-                <fact name="NietEtenDrinken">ja</fact>
-                <fact name="AchterblijvenKoppel">ja</fact>
+                <fact name="Eetlust">nee</fact>
+                <fact name="NietDrinken">ja</fact>
+                <fact name="AchterblijvenBijKoppel">ja</fact>
                 <fact name="StilstaanKopGedraaid">ja</fact>
                 <fact name="Vallen">ja</fact>
                 <fact name="Trappen">ja</fact>
@@ -75,13 +137,15 @@
     <description>LysteriaMiss</description>
     <if>
         <and>
+            <fact name= "Locatie">binnen</fact>   
             <fact name="Orgaan">gedraghoudinggang</fact>
             <some threshold="7">
                 <fact name="Cirkel">ja</fact>
                 <fact name="Afhangend">ja</fact>
                 <fact name="Speekselen">ja</fact>
-                <fact name="NietEtenDrinken">ja</fact>
-                <fact name="AchterblijvenKoppel">ja</fact>
+                <fact name="Eetlust">nee</fact>
+                <fact name="NietDrinken">ja</fact>
+                <fact name="AchterblijvenBijKoppel">ja</fact>
                 <fact name="StilstaanKopGedraaid">ja</fact>
                 <fact name="Vallen">ja</fact>
                 <fact name="Trappen">ja</fact>
@@ -98,22 +162,25 @@
     <description>Scrapie</description>
     <if>
         <and>
+            <fact name="Jeuk">ja</fact>
             <or>
-            <fact name="Orgaan">gedraghoudinggang</fact>
-            <fact name="Orgaan">huidslijmvliezen</fact>
-            <fact name="Orgaan">wol</fact>
-            <fact name="Orgaan">ogen</fact>
+                <fact name="Orgaan">gedraghoudinggang</fact>
+                <fact name="Orgaan">huidslijmvliezen</fact>
+                <fact name="Orgaan">wol</fact>
+                <fact name="Orgaan">ogen</fact>
             </or>
-            <some threshold="8">
+            <or>
+                <fact name="Conditie">een</fact>
+                <fact name="Conditie">twee</fact>
+            </or>
+            <some threshold="7">
                 <fact name="Cirkel">ja</fact>
-                <fact name="Jeuk">ja</fact>
                 <fact name="Trillen">ja</fact>
                 <fact name="OnrustigSchrikachtig">ja</fact>
                 <fact name="KaalWonden">ja</fact>
                 <fact name="WolDroogMat">ja</fact>
                 <fact name="GlazigeBlik">ja</fact>
                 <fact name="StrekkenNek">ja</fact>
-                <fact name="Mager">ja</fact>
                 <fact name="Afzonderen">ja</fact>
             </some>   
         </and>
@@ -126,15 +193,19 @@
     <description>ScrapieMiss</description>
     <if>
         <and>
+            <fact name="Jeuk">ja</fact>
             <or>
-            <fact name="Orgaan">gedraghoudinggang</fact>
-            <fact name="Orgaan">huidslijmvliezen</fact>
-            <fact name="Orgaan">wol</fact>
-             <fact name="Orgaan">ogen</fact>
+                <fact name="Orgaan">gedraghoudinggang</fact>
+                <fact name="Orgaan">huidslijmvliezen</fact>
+                <fact name="Orgaan">wol</fact>
+                <fact name="Orgaan">ogen</fact>
             </or>
-            <some threshold="7">
+            <or>
+                <fact name="Conditie">een</fact>
+                <fact name="Conditie">twee</fact>
+            </or>
+            <some threshold="6">
                 <fact name="Cirkel">ja</fact>
-                <fact name="Jeuk">ja</fact>
                 <fact name="Trillen">ja</fact>
                 <fact name="OnrustigSchrikachtig">ja</fact>
                 <fact name="KaalWonden">ja</fact>
@@ -155,41 +226,63 @@
 <question>
     <multiple>yes</multiple>
     <description>Van welke van de volgende symptomen heeft het schaap last van?</description>
+    <image>
+        <caption>Schaap met Tetanus (Klem)</caption>
+        <file>../images/tetanus.png</file>
+    </image>
     <option>
         <description>Hij heeft last van stijve achterpoten.</description>
         <then>
             <fact name="StijvePoten">ja</fact>
         </then>
+        <ifnot>
+            <fact name="StijvePoten">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Het derde ooglid is zichtbaar.</description>
         <then>
             <fact name="DerdeOoglid">ja</fact>
         </then>
+        <ifnot>
+            <fact name="DerdeOoglid">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Kaakklem.</description>
         <then>
             <fact name="Kaakklem">ja</fact>
         </then>
+        <ifnot>
+            <fact name="Kaakklem">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>De kop van het schaap staat naar achteren.</description>
         <then>
             <fact name="KopAchteren">ja</fact>
         </then>
+        <ifnot>
+            <fact name="KopAchteren">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Af en toe krampaanvallen.</description>
         <then>
             <fact name="Krampaanvallen">ja</fact>
         </then>
+        <ifnot>
+            <fact name="Krampaanvallen">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Sterfte binnen 4 tot 7 dagen na het begin van de symptomen</description>
         <then>
             <fact name="Sterfte47">ja</fact>
         </then>
+        <ifnot>
+            <fact name="Sterfte47">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Geen van bovenstaanden</description>
@@ -213,60 +306,98 @@
         <then>
             <fact name="Cirkel">ja</fact>
         </then>
+         <ifnot>
+            <fact name="Cirkel">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Éénzijdig afhangend oor, ooglid of lip.</description>
         <then>
             <fact name="Afhangend">ja</fact>
         </then>
+         <ifnot>
+            <fact name="Afhangend">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Speekselen, niet kunnen slikken.</description>
         <then>
             <fact name="Speekselen">ja</fact>
         </then>
+        <ifnot>
+            <fact name="Speekselen">nee</fact>
+        </ifnot>
     </option>
     <option>
-        <description>Niet eten of drinken.</description>
+        <description>Geen eetlust.</description>
         <then>
-            <fact name="NietEtenDrinken">ja</fact>
+            <fact name="Eetlust">ja</fact>
         </then>
+        <ifnot>
+            <fact name="Eetlust">nee</fact>
+        </ifnot>
     </option>
+    <option>
+        <description>Niet drinken.</description>
+        <then> 
+            <fact name="NietDrinken">ja</fact>
+        </then>
+        <ifnot>
+            <fact name="NietDrinken">nee</fact>
+        </ifnot>
     <option>
         <description>Achterblijven bij de koppel.</description>
         <then>
-            <fact name="AchterblijvenKoppel">ja</fact>
+            <fact name="AchterblijvenBijKoppel">ja</fact>
         </then>
+        <ifnot>
+            <fact name="AchterblijvenKoppel">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Stilstaan zonder te bewegen met de kop naar één kant gedraaid.</description>
         <then>
             <fact name="StilstaanKopGedraaid">ja</fact>
         </then>
+        <ifnot>
+            <fact name="StilstaanKopGedraaid">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Vallen zonder weer op te staan.</description>
         <then>
             <fact name="Vallen">ja</fact>
         </then>
+        <ifnot>
+            <fact name="Vallen">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Trappende bewegingen met de voorpoten.</description>
         <then>
             <fact name="Trappen">ja</fact>
         </then>
+        <ifnot>
+            <fact name="Trappen">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Zwaar ademen.</description>
         <then>
             <fact name="ZwaarAdemen">ja</fact>
         </then>
+         <ifnot>
+            <fact name="ZwaarAdemen">nee</fact>
+        </ifnot>
     </option>
     <option>
-        <description> Overleden.</description>
+        <description> Sterfte.</description>
         <then>
             <fact name="Sterfte">ja</fact>
         </then>
+        <ifnot>
+            <fact name="Sterfte">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Geen van bovenstaanden</description>
@@ -274,8 +405,9 @@
             <fact name="Cirkel">nee</fact>
             <fact name="Afhangend">nee</fact>
             <fact name="Speekselen">nee</fact>
-            <fact name="NietEtenDrinken">nee</fact>
-            <fact name="AchterblijvenKoppel">nee</fact>
+            <fact name="Eetlust">ja</fact>
+            <fact name="NietDrinken">nee</fact>
+            <fact name="AchterblijvenBijKoppel">nee</fact>
             <fact name="StilstaanKopGedraaid">nee</fact>
             <fact name="Vallen">nee</fact>
             <fact name="Trappen">nee</fact>
@@ -295,60 +427,81 @@
         <then>
             <fact name="Cirkel">ja</fact>
         </then>
+        <ifnot>
+            <fact name="Cirkel">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Last van jeuk en krabt.</description>
         <then>
             <fact name="Jeuk">ja</fact>
         </then>
+        <ifnot>
+            <fact name="Jeuk">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Trillen.</description>
         <then>
             <fact name="Trillen">ja</fact>
         </then>
+        <ifnot>
+            <fact name="Trillen">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Onrustig en schrikachtig</description>
         <then>
             <fact name="OnrustigSchrikachtig">ja</fact>
         </then>
+        <ifnot>
+            <fact name="OnrustigSchrikachtig">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Kaal en wonden.</description>
         <then>
             <fact name="KaalWonden">ja</fact>
         </then>
+        <ifnot>
+            <fact name="KaalWonden">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>De wol is droog en mat</description>
         <then>
             <fact name="WolDroogMat">ja</fact>
         </then>
+        <ifnot>
+            <fact name="WolDroogMat">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Meer glazige blik dan normaal.</description>
         <then>
             <fact name="GlazigeBlik">ja</fact>
         </then>
+         <ifnot>
+            <fact name="GlazigeBlik">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Strekken van de nek en bijtende en likkende bewegingen maken.</description>
         <then>
             <fact name="StrekkenNek">ja</fact>
         </then>
-    </option>
-    <option>
-        <description>Mager worden.</description>
-        <then>
-            <fact name="Mager">ja</fact>
-        </then>
+        <ifnot>
+            <fact name="StrekkenNek">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description> Afzonderen van de groep.</description>
         <then>
             <fact name="Afzonderen">ja</fact>
         </then>
+        <ifnot>
+            <fact name="Afzonderen">nee</fact>
+        </ifnot>
     </option>
     <option>
         <description>Geen van bovenstaanden</description>
@@ -361,7 +514,6 @@
             <fact name="WolDroogMat">nee</fact>
             <fact name="GlazigeBlik">nee</fact>
             <fact name="StrekkenNek">nee</fact>
-            <fact name="Mager">nee</fact>
             <fact name="Afzonderen">nee</fact>
         </then>
     </option>

@@ -2,7 +2,7 @@
 
 <?php $this->begin('content') ?>
 <section class="question">
-	<p><?=$state->substitute_variables($question->description, ['Template', 'html'])?></p>
+	<h3><?=$state->substitute_variables($question->description, ['Template', 'html'])?></h3>
 
 	<ol class="options">
 		<?php foreach ($question->options as $option): ?>

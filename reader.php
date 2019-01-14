@@ -104,6 +104,8 @@ class KnowledgeBaseReader
 				$kb->algorithm = $node->getAttribute('algorithm');
 		}
 
+		$kb->facts["Maand"] = (string)date("m");
+
 		foreach ($this->childElements($node) as $childNode)
 		{
 			switch ($childNode->nodeName)

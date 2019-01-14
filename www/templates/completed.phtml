@@ -7,7 +7,7 @@
 	<?php foreach ($domain->goals as $goal): ?>
 		<?php if ($goal->hasAnswers() && (($answer = $goal->answer($state)) || $state->facts[$goal->name] != STATE_UNDEFINED)): ?>
 			<?php if ($answer->aangifteplicht): ?>
-				<h4 class="aangifte"> Let op! Dit is een aangifteplichtige ziekte, meld deze bij de nVWA.</h4>
+				<h4 class="aangifte">Let op! Dit is een aangifteplichtige ziekte, meld deze bij de nVWA.</h4>
 			<?php endif ?>
 			<dt><?=$state->substitute_variables($goal->description, ['Template', 'html'])?>Diagnose</dt>
 			<dd><?php
@@ -22,7 +22,7 @@
 					: '<pre>' . $state->facts[$goal->name] . '</pre>';
 				?></dd>
 			<?php if ($answer->preventief != ''): ?>
-			<dt><?=$state->substitute_variables($goal->description, ['Template', 'html'])?>Preventie</dt>
+			<dt><?=$state->substitute_variables($goal->description, ['Template', 'html'])?>Preventief</dt>
 			<dd><?php
 				echo $answer
 					? $state->substitute_variables($answer->preventief, ['Template', 'html'])
@@ -37,7 +37,7 @@
 					: '<pre>' . $state->facts[$goal->name] . '</pre>';
 				?></dd>
 			<?php endif ?>
-			<?php endif ?>
+		<?php endif ?>
 	<?php endforeach ?>
 	</dl>
 </section>

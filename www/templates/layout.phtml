@@ -21,11 +21,11 @@
 		<section class="contentBlock">
 			<div class="state">
 				<?php if(count($state->facts) > 1): ?>
-				<section class="state-info fact-state">
+				<section>
 					<h3>Wat weten we al?</h3>
 					<dl>
 						<?php foreach($state->facts as $name => $value): ?>
-						<?php if($name != "undefined"&& $value != "nee"): ?>
+						<?php if($name != "undefined"&& $name != "Maand" && $name != "Action" && $value != "nee"): ?>
 						<dt><?=$name?></dt>
 						<dd>
 							<?=$this->html($value)?>
@@ -178,8 +178,7 @@
 		updateLogLevel();
 		</script>
 		<footer>
-			<p> FOOOOOOTER </p>
-			<img scr="../images/shaun.jpg">
+			<p>Knowledge Technolgy Practical 2019, group 26.</p>
 		</footer>
 	</body>
 </html>
