@@ -28,27 +28,27 @@
         </answer>
 		<answer value="Zwoegerziekte">
             <diagnose>Het lijkt erop dat het schaap last heeft van zwoegerziekte.</diagnose>
-            <behandeling>Geen.</behandeling>
+            <behandeling>Er is geen behandeling mogelijk.</behandeling>
             <opmerkingen>Een schaap met zwoegerziekte herstelt niet. LET OP! Kudde die niet zwoegerziekte vrij is ver van “vrije” kuddes houden.</opmerkingen>
         </answer>
 		<answer value="ZwoegerziekteMiss">
             <diagnose>Het zou kunnen dat het schaap last heeft van zwoegerziekte. Het aantal symptomen is echter nog te weinig om dit met zekerheid te kunnen zeggen.</diagnose>
-            <behandeling>Geen.</behandeling>
+            <behandeling>Er is geen behandeling mogelijk.</behandeling>
             <opmerkingen>Een schaap met zwoegerziekte herstelt niet. LET OP! Kudde die niet zwoegerziekte vrij is ver van “vrije” kuddes houden.</opmerkingen>
         </answer>
 		<answer value="VerscheuringMiddenrif">
             <diagnose>Het lijkt erop dat het schaap last heeft van een verscheuring van het middenrif.</diagnose>
-            <behandeling>Geen.</behandeling>
+            <behandeling>Er is geen behandeling mogelijk.</behandeling>
         </answer>
 		<answer value="VerscheuringMiddenrifMiss">
             <diagnose>Het zou kunnen dat het schaap last heeft van een verscheuring van het middenrif. Het aantal symptomen is echter nog te weinig om dit met zekerheid te kunnen zeggen.</diagnose>
-            <behandeling>Geen.</behandeling>
+            <behandeling>Er is geen behandeling mogelijk.</behandeling>
         </answer>
 		<answer value="Voedingsprobleem">
-            <diagnose>De oorzaak lijkt de voeding te zijn, controleer of de schapen niet te veel eten en of er geen verkeerde planten zoals buxus in het weiland staan. Als de voeding goed is, denk dan aan ontwormen.</diagnose>
-            <behandeling>Blabla</behandeling>
-            <preventief>Iets doen</preventief>
-            <opmerkingen>Ja dus niet</opmerkingen>
+            <diagnose>De oorzaak lijkt de voeding te zijn. </diagnose>
+            <behandeling>Controleer of de schapen niet te veel eten en of er geen verkeerde planten zoals buxus in het weiland staan.</behandeling>
+            <preventief>Zorg voor gevarieerde voeding.</preventief>
+            <opmerkingen>Als de voeding goed is, denk dan aan ontwormen.</opmerkingen>
         </answer>
 		<answer value="Wormeninfectie">
             <diagnose>Het lijkt erop dat de schapen last hebben van wormen.</diagnose>
@@ -107,7 +107,7 @@
             <opmerkingen>Na een paar weken kan er een spontane genezing zijn.</opmerkingen>
         </answer>
 
-        <answer value="wolluis">
+        <answer value="Wolluis">
             <diagnose>Deze symptomen wijzen op wolluis. Dit wordt veroorzaakt door een luis (Damalinia/Bovicola ovis).</diagnose>
             <behandeling>Behandel het schaap met Butox of een verdunde Neocidol oplossing (gebruik deze twee nooit samen).</behandeling>
             <opmerkingen>De wolluis komt voornamelijk in de winterperiode voor. De luis is te zien bij het opensperren van de wol net boven de huid.</opmerkingen>
@@ -170,7 +170,7 @@
         </answer>
         <answer value="EikeltjesVergiftiging">
             <diagnose>Het lijkt erop dat het schaap is vergiftigd door eikeltjes.</diagnose>
-            <behandeling>Geen.</behandeling>
+            <behandeling>Er is geen behandeling mogelijk.</behandeling>
             <preventief>Laat de schapen voordat ze langs een eikenboom komen vooral veel andere vegetatie eten.</preventief>
             <opmerkingen>Om de tanine uit de eikeltjes te binden kan er norit, movicolon, movicol of geactiveerde kool gegeven worden.</opmerkingen>
         </answer>
@@ -179,7 +179,7 @@
             <behandeling>Bij blindheid ooi naar stal brengen, lopen anders de netten en of sloot in. Moeilijk mee te hoeden! </behandeling>
             <opmerkingen>De infectie duurt bij een ooi ongeveer 2 weken. Afhankelijk van de weerstand van de ooi gaat de infectie in 3 à 4 maanden door de hele koppel heen. Na infectie hebben de ooien weer een aantal jaar weerstand.</opmerkingen>
         </answer>
-        <answer value="rotkreupel">
+        <answer value="Rotkreupel">
             <diagnose>Deze symptomen wijzen op rotkreupel.Dit is een ontsteking van het tussenklauwgebied, veroorzaakt door bacterien. Meestal zullen meerdere schapen binnen de koppel hier last van hebben. Symptomen zijn het staan op voorknien, kloofvorming en afwijkende hoorngroei. De klauw zelf is ontstoken, voelt warme aan en is pijnlijk.</diagnose>
             <behandeling>Injecteer met antibiotica en oxytetracyclinespray. Zet de dieren in een aparte wei (geisoleerd van de rest van de koppel). Gebruik een stabad.</behandeling>
             <preventief>Controleer dieren regelmatig op kreupelheden. Vaccinatie met Footvax is mogelijk.</preventief>
@@ -642,7 +642,7 @@
 
     <!-- Rotkreupel -->
         <rule>
-            <description>rotkreupel</description>
+            <description>Rotkreupel</description>
             <if>
                 <and>
                     <fact name="Orgaan">kreupelheid</fact>
@@ -651,7 +651,7 @@
                 </and>
             </if>
             <then>
-                <fact name="Action">rotkreupel</fact>
+                <fact name="Action">Rotkreupel</fact>
             </then>
         </rule>
 
@@ -707,10 +707,6 @@
                 <or>
                     <fact name="Orgaan">gedraghoudinggang</fact>
                     <fact name="Orgaan">ogen</fact>
-                </or>
-                <or>
-                    <fact name="Leeftijd">jaarling</fact>
-                    <fact name="Leeftijd">lam</fact>
                 </or>
                 <some threshold="4">
                     <fact name="Leeftijd">lam</fact>
@@ -848,7 +844,7 @@
 
     <!-- Wolluis -->
     <rule>
-        <description>wolluis</description>
+        <description>Wolluis</description>
         <if>
             <and>
                 <fact name="Orgaan">huid en/of wol</fact>
@@ -862,7 +858,7 @@
             </and>
         </if>
         <then>
-            <fact name="Action">wolluis</fact>
+            <fact name="Action">Wolluis</fact>
         </then>
     </rule>
 
@@ -1132,7 +1128,7 @@
 
         <!-- Conditie -->
         <question>
-            <description>Hoe is de conditie score van het schaap op een schaal van 1 tot 5 waar 1 heel mager is en 5 heel vet?</description>
+            <description>Hoe is de conditie score van het schaap op een schaal van 1 tot 5 (waar 1 heel mager is en 5 heel vet)?</description>
             <option>
                 <description>1</description>
                 <then>
@@ -1386,7 +1382,7 @@
         </question>
 
         <question>
-            <description>Wat voor knobbels zijn aanwezich op de huid?</description>
+            <description>Wat voor knobbels zijn aanwezig op de huid?</description>
             <option>
                 <description>De knobbels in de huid zijn hard.</description>
                 <then>
@@ -1476,7 +1472,7 @@
                 </ifnot>
             </option>
             <option>
-                <description>Koorts of lusteloosheid</description>
+                <description>Koorts of lusteloosheid. Een normale temperatuur van een schaap ligt tussen de 38.5ºC en 40ºC (voor lammeren tussen de 38.5ºC en 40.4ºC).</description>
                 <then>
                     <fact name="Koorts">ja</fact>
                 </then>
@@ -1503,7 +1499,7 @@
                 </ifnot>
             </option>
             <option>
-                <description>Stefte</description>
+                <description>Sterfte</description>
                 <then>
                     <fact name="Sterfte">ja</fact>
                 </then>
@@ -1775,10 +1771,10 @@
        <!-- Tetanus -->
         <question>
             <multiple>yes</multiple>
-            <description>Van welke van de volgende symptomen heeft het schaap last van?</description>
+            <description>Heeft het schaap last van een van de volgende symptomen?</description>
             <image>
                 <caption>Schaap met Tetanus (Klem)</caption>
-                <file>../images/tetanus.png</file>
+                <file>../images/Tetanus.png</file>
             </image>
             <option>
                 <description>Hij heeft last van stijve achterpoten.</description>
@@ -1972,7 +1968,7 @@
 
         <question>
             <multiple>yes</multiple>
-            <description>Van welke van de volgende symptomen heeft het schaap last van?</description>
+            <description>Heeft het schaap last van een van de volgende symptomen?</description>
             <option>
                 <description>Het schaap cirkelt naar één kant.</description>
                 <then>
@@ -2154,7 +2150,7 @@
             </image>
             <image>
                 <caption>Eikeltjes</caption>
-                <file>../images/Eikeltjes.jpg</file>
+                <file>../images/eikeltjes.jpg</file>
             </image>
         </question>
 
